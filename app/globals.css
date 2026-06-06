@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sakura-50: #FFF5F8;
+  --sakura-100: #FFF0F4;
+  --sakura-200: #FFE4EC;
+  --sakura-300: #FFDCE7;
+  --ink-900: #0B0B0C;
+  --ink-800: #111111;
+  --steel: #C8CCD4;
+  --crimson: #9D1B32;
+  --cyan: #55D6FF;
+  --amber: #D4A84F;
+}
+
+html, body {
+  background: var(--sakura-200);
+  color: var(--ink-800);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+body {
+  font-family: var(--font-display), "SF Pro Display", "Inter", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Hide native cursor on desktop only */
+@media (hover: hover) and (pointer: fine) {
+  body, body * {
+    cursor: none !important;
+  }
+}
+
+::selection {
+  background: var(--ink-800);
+  color: var(--sakura-100);
+}
+
+/* Editorial display heading */
+.heading-display {
+  font-family: var(--font-display), "SF Pro Display", "Inter", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+}
+
+.heading-eyebrow {
+  font-family: var(--font-text), "SF Pro Text", "Inter", system-ui, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: rgba(17, 17, 17, 0.55);
+}
+
+.text-body {
+  font-family: var(--font-text), "SF Pro Text", "Inter", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: rgba(17, 17, 17, 0.78);
+}
+
+/* Brush stroke layer behind big headings */
+.brush-behind {
+  position: relative;
+  isolation: isolate;
+}
+.brush-behind::before {
+  content: "";
+  position: absolute;
+  inset: -8% -6%;
+  z-index: -1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 200'><defs><filter id='r'><feTurbulence baseFrequency='0.85' numOctaves='2' seed='4'/><feDisplacementMap in='SourceGraphic' scale='14'/></filter></defs><g filter='url(%23r)' fill='%23111111' opacity='0.07'><path d='M30 110 C 140 60, 280 170, 420 100 S 720 80, 780 130' stroke='%23111' stroke-width='38' fill='none' stroke-linecap='round'/></g></svg>");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* Washi paper grain */
+.paper-grain {
+  background-image:
+    radial-gradient(rgba(17,17,17,0.045) 1px, transparent 1px),
+    radial-gradient(rgba(17,17,17,0.03) 1px, transparent 1px);
+  background-size: 3px 3px, 7px 7px;
+  background-position: 0 0, 1px 2px;
+}
+
+/* Subtle vertical light streaks (museum lighting) */
+.museum-lights {
+  background:
+    radial-gradient(ellipse at 12% -10%, rgba(255,255,255,0.6), transparent 40%),
+    radial-gradient(ellipse at 88% -10%, rgba(255,255,255,0.45), transparent 40%),
+    radial-gradient(ellipse at 50% 110%, rgba(157,27,50,0.10), transparent 55%);
+}
+
+/* Section divider — thin ink line */
+.ink-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(17,17,17,0.28), transparent);
+}
+
+/* Card surface (washi card) */
+.washi-card {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.25)),
+    var(--sakura-100);
+  border: 1px solid rgba(17,17,17,0.08);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.7) inset,
+    0 30px 60px -30px rgba(17,17,17,0.22),
+    0 8px 24px -12px rgba(157,27,50,0.10);
+  border-radius: 22px;
+  backdrop-filter: blur(8px);
+}
+
+/* Sword glow utility */
+.blade-shimmer {
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.85) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  mix-blend-mode: screen;
+}
+
+/* Hide scrollbars on rare overflow containers */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print — recruiter view becomes a clean one-pager.
+   "Save as PDF" produces a hireable resume out of the same data. */
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt;
+  }
+  /* Hide everything that isn't content */
+  [data-print-hide],
+  header,
+  footer,
+  nav,
+  [aria-hidden="true"] {
+    display: none !important;
+  }
+  .washi-card {
+    background: #ffffff !important;
+    border: 1px solid #e5e5e5 !important;
+    box-shadow: none !important;
+    border-radius: 6px !important;
+    backdrop-filter: none !important;
+    page-break-inside: avoid;
+  }
+  .brush-behind::before,
+  .paper-grain,
+  .museum-lights {
+    display: none !important;
+  }
+  a {
+    color: #000 !important;
+    text-decoration: underline !important;
+  }
+  .heading-display {
+    color: #000 !important;
+  }
+  /* Tighten spacing for paper */
+  section { padding: 8pt 0 !important; }
+  main { padding: 0 !important; max-width: none !important; }
+  @page { margin: 14mm; }
+}
