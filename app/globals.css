@@ -33,9 +33,12 @@ body {
   overflow-x: hidden;
 }
 
-/* Hide native cursor on desktop only */
+/* Hide native cursor on desktop only, and only when the custom cursor is
+   actually rendered (Exhibit mode). Recruiter Mode removes .cinematic so the
+   OS cursor returns and recruiters get a frictionless experience. */
 @media (hover: hover) and (pointer: fine) {
-  body, body * {
+  html.cinematic body,
+  html.cinematic body * {
     cursor: none !important;
   }
 }

@@ -1,19 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 /**
- * Katana-shaped custom cursor. Two layers:
- *   - a small ink dot that tracks exactly
- *   - a sheathed blade that trails with eased lerp
- * Detects `[data-hover]` ancestors to reveal the blade, and emits a brief
- * slash arc on pointerdown. Hidden on touch/coarse-pointer devices via CSS.
+ * Minimal Arc/Linear-school cursor. Two parts:
+ *   - 5 px solid ink dot — tracks the pointer exactly
+ *   - 30 px outlined ring — lerps behind, scales up on [data-hover] targets
+ *
+ * No katana imagery, no slash arc, no flashy click effects. The cursor is a
+ * presence, not a feature. Hidden entirely on touch / coarse-pointer devices
+ * by CSS; not rendered at all in Recruiter Mode (see AppFrame).
  */
 export function KatanaCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
-  const bladeRef = useRef<HTMLDivElement>(null);
-  const slashRef = useRef<HTMLDivElement>(null);
-  const [armed, setArmed] = useState(false);
+  const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -22,8 +22,12 @@ export function KatanaCursor() {
 
     let mx = window.innerWidth / 2;
     let my = window.innerHeight / 2;
-    let bx = mx;
-    let by = my;
+    let rx = mx;
+    let ry = my;
+    let scale = 1;
+    let targetScale = 1;
+    let opacity = 1;
+    let targetOpacity = 1;
     let raf = 0;
 
     const onMove = (e: PointerEvent) => {
@@ -31,39 +35,32 @@ export function KatanaCursor() {
       my = e.clientY;
       const target = e.target as HTMLElement | null;
       const hov = !!target?.closest?.("[data-hover]");
-      setArmed(hov);
+      targetScale = hov ? 1.45 : 1;
+      targetOpacity = hov ? 0.45 : 1;
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${mx - 4}px, ${my - 4}px, 0)`;
+        dotRef.current.style.transform = `translate3d(${mx - 2.5}px, ${my - 2.5}px, 0)`;
       }
     };
 
     const tick = () => {
-      bx += (mx - bx) * 0.18;
-      by += (my - by) * 0.18;
-      if (bladeRef.current) {
-        const dx = mx - bx;
-        const dy = my - by;
-        const angle = Math.atan2(dy, dx) * (180 / Math.PI);
-        bladeRef.current.style.transform = `translate3d(${bx - 28}px, ${by - 28}px, 0) rotate(${angle - 45}deg)`;
+      rx += (mx - rx) * 0.22;
+      ry += (my - ry) * 0.22;
+      scale += (targetScale - scale) * 0.18;
+      opacity += (targetOpacity - opacity) * 0.18;
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${rx - 15}px, ${ry - 15}px, 0) scale(${scale.toFixed(3)})`;
+      }
+      if (dotRef.current) {
+        dotRef.current.style.opacity = opacity.toFixed(3);
       }
       raf = requestAnimationFrame(tick);
     };
 
     const onDown = () => {
-      if (!slashRef.current) return;
-      const el = slashRef.current;
-      el.style.left = `${mx - 60}px`;
-      el.style.top = `${my - 60}px`;
-      el.classList.remove("opacity-0");
-      el.classList.remove("scale-50");
-      el.classList.add("opacity-100");
-      el.classList.add("scale-100");
+      targetScale = 0.85;
       window.setTimeout(() => {
-        el.classList.remove("opacity-100");
-        el.classList.remove("scale-100");
-        el.classList.add("opacity-0");
-        el.classList.add("scale-50");
-      }, 220);
+        targetScale = 1;
+      }, 140);
     };
 
     raf = requestAnimationFrame(tick);
@@ -81,61 +78,17 @@ export function KatanaCursor() {
       {/* Tip dot — exact tracking */}
       <div
         ref={dotRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] h-2 w-2 rounded-full bg-ink-900 mix-blend-multiply"
-        style={{ transition: "background-color 200ms ease" }}
+        aria-hidden
+        className="pointer-events-none fixed left-0 top-0 z-[9999] h-[5px] w-[5px] rounded-full bg-ink-900"
+        style={{ willChange: "transform, opacity" }}
       />
-      {/* Sheathed blade — trails */}
+      {/* Soft ring — lerps behind */}
       <div
-        ref={bladeRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9998] h-14 w-14"
-        style={{ transition: "opacity 220ms ease" }}
-      >
-        <svg viewBox="0 0 56 56" className="h-full w-full">
-          {/* Sheath */}
-          <rect
-            x="6"
-            y="26"
-            width="36"
-            height="6"
-            rx="2"
-            fill="#111111"
-            opacity={armed ? 0.0 : 0.92}
-            style={{ transition: "opacity 220ms ease" }}
-          />
-          {/* Blade (revealed on hover) */}
-          <g style={{ transition: "opacity 220ms ease" }} opacity={armed ? 1 : 0}>
-            <path d="M6 28 L46 26 L50 28 L46 30 L6 28 Z" fill="#EAEEF4" />
-            <path d="M6 28 L46 26 L50 28" stroke="#C8CCD4" strokeWidth="0.6" fill="none" />
-            <circle cx="6" cy="28" r="3" fill="#9D1B32" />
-            <rect x="2" y="26" width="3" height="4" fill="#111111" />
-          </g>
-        </svg>
-      </div>
-      {/* Slash arc on click */}
-      <div
-        ref={slashRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9997] h-[120px] w-[120px] opacity-0 scale-50"
-        style={{ transition: "opacity 220ms ease, transform 220ms ease" }}
-      >
-        <svg viewBox="0 0 120 120" className="h-full w-full">
-          <path
-            d="M10 90 Q 60 10, 110 30"
-            stroke="#111111"
-            strokeWidth="2"
-            strokeLinecap="round"
-            fill="none"
-            opacity="0.85"
-          />
-          <path
-            d="M14 92 Q 60 18, 108 34"
-            stroke="#9D1B32"
-            strokeWidth="1"
-            strokeLinecap="round"
-            fill="none"
-            opacity="0.7"
-          />
-        </svg>
-      </div>
+        ref={ringRef}
+        aria-hidden
+        className="pointer-events-none fixed left-0 top-0 z-[9998] h-[30px] w-[30px] rounded-full border border-ink-900/55"
+        style={{ willChange: "transform", backdropFilter: "blur(1px)" }}
+      />
     </>
   );
 }

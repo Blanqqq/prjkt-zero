@@ -2,12 +2,14 @@
 
 import { AtmosphereLayers } from "./AtmosphereLayers";
 import { EasterEgg } from "./EasterEgg";
+import { EasterEggRibbon } from "./EasterEggRibbon";
 import { Footer } from "./Footer";
 import { KatanaCursor } from "./KatanaCursor";
 import { Nav } from "./Nav";
 import { PageTransition } from "./PageTransition";
 import { usePortfolio } from "./PortfolioContext";
 import { SakuraPetals } from "./SakuraPetals";
+import { SidebarRail } from "./SidebarRail";
 
 /**
  * App frame: global atmosphere + nav + footer that wrap every route.
@@ -32,10 +34,12 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
       <AtmosphereLayers />
       {hydrated && cinematic && <SakuraPetals count={36} />}
       {hydrated && cinematic && <KatanaCursor />}
+      {cinematic && <SidebarRail />}
       <Nav />
-      <div id="main">
+      <div id="main" className={cinematic ? "lg:pl-16" : ""}>
         <PageTransition>{children}</PageTransition>
       </div>
+      {cinematic && <EasterEggRibbon />}
       <Footer />
       {hydrated && cinematic && <EasterEgg />}
     </>

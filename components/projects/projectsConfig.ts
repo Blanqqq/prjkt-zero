@@ -16,6 +16,12 @@ export type Project = {
   carModel: string;
   carYear: string;
   car: "rx7" | "r34" | "supra" | "nsx";
+  /**
+   * Optional drop-in render. Path relative to /public (e.g. "/cars/r34.png").
+   * If set, JDMCar renders the image instead of the SVG.
+   * Recommended dimensions: 1600 × 900 PNG, transparent or studio background.
+   */
+  carImageSrc?: string;
   mockup: "browser" | "ai" | "phone" | "workflow";
   liveryPrimary: string;
   liveryAccent: string;

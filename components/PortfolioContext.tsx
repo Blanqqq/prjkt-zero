@@ -43,6 +43,14 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     setHydrated(true);
   }, []);
 
+  // Reflect mode on <html> so cursor:none can be gated cleanly in CSS
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const cls = document.documentElement.classList;
+    if (hydrated && !recruiter) cls.add("cinematic");
+    else cls.remove("cinematic");
+  }, [recruiter, hydrated]);
+
   const setRecruiter = useCallback((v: boolean) => {
     setRecruiterState(v);
     try {

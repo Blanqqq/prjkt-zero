@@ -6,9 +6,26 @@ import type { Project } from "./projectsConfig";
  * Side-profile SVG silhouettes of four iconic JDM cars. Stylized — not photoreal.
  * The goal is the *feel*: long hood (Supra), boxy widebody (R34), pop-up curves
  * (RX-7), low mid-engine wedge (NSX). Body color follows the project livery.
+ *
+ * If `carImageSrc` is set on the project, an <img> render takes over.
  */
 export function JDMCar({ project }: { project: Project }) {
-  const { liveryPrimary, liveryAccent, car } = project;
+  const { liveryPrimary, liveryAccent, car, carImageSrc } = project;
+
+  if (carImageSrc) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={carImageSrc}
+        alt={project.carModel}
+        width={1600}
+        height={900}
+        className="h-auto w-full max-w-[760px] object-contain drop-shadow-[0_40px_50px_rgba(17,17,17,0.28)]"
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  }
 
   return (
     <svg

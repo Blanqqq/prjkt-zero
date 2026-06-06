@@ -4,6 +4,12 @@ export type KatanaVariant = {
   kanji: string;
   subtitle: string;
   targetId: string;
+  /**
+   * Optional drop-in render. Path relative to /public (e.g. "/katanas/edu.png").
+   * If set, the Katana component renders the image instead of the SVG.
+   * Recommended dimensions: 600 × 1400 PNG with transparent background.
+   */
+  imageSrc?: string;
   blade: {
     base: string;
     edge: string;

@@ -68,27 +68,21 @@ export function Nav() {
           : "bg-transparent border-b border-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6 sm:px-10">
+      <div className={`mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6 sm:px-10 ${!recruiter ? "lg:pl-24" : ""}`}>
         <a
           href="#top"
           data-hover
           className="flex items-center gap-3 text-ink-800"
           aria-label="Back to top"
         >
-          <svg viewBox="0 0 24 24" className="h-6 w-6">
-            <circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" strokeWidth="1" />
-            <text
-              x="12"
-              y="16"
-              textAnchor="middle"
-              fontFamily="serif"
-              fontSize="11"
-              fill="currentColor"
-            >
-              零
-            </text>
-          </svg>
-          <span className="text-sm font-semibold tracking-tight">
+          {/* Brush mark — calligraphic 零 inside a hairline circle */}
+          <span
+            className="grid h-8 w-8 place-items-center rounded-full border border-ink-800/15 bg-white/55"
+            aria-hidden
+          >
+            <span className="font-brush text-base leading-none text-ink-800">零</span>
+          </span>
+          <span className="font-brush text-base font-medium tracking-tight text-ink-800">
             John Paul Giftson
           </span>
         </a>
