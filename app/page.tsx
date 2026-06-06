@@ -22,21 +22,23 @@ export default function Home() {
 }
 
 function FullExperience() {
+  // Recruiter-priority ordering — projects + experience lead. Hobbies is last
+  // (still discoverable, but doesn't block the work narrative).
   return (
     <main className="relative">
       <Hero />
-      <Divider kanji="刻" />
-      <Education />
-      <Divider kanji="鍛" />
+      <Divider kanji="創" />
       <Projects />
       <Divider kanji="業" />
       <Experience />
       <Divider kanji="技" />
       <Skills />
-      <Divider kanji="趣" />
-      <Hobbies />
+      <Divider kanji="学" />
+      <Education />
       <Divider kanji="縁" />
       <Contact />
+      <Divider kanji="趣" />
+      <Hobbies />
     </main>
   );
 }

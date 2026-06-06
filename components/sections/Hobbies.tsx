@@ -34,7 +34,7 @@ export function Hobbies() {
   return (
     <section
       id="hobbies"
-      className="relative mx-auto w-full max-w-[1400px] px-6 py-32 sm:px-10"
+      className="relative mx-auto w-full max-w-[1400px] px-6 py-24 sm:px-10"
     >
       <SectionHeading
         eyebrow="Exhibition · Floor 06"

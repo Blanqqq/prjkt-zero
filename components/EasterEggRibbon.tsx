@@ -122,9 +122,11 @@ export function EasterEggRibbon() {
           </div>
           <div className="mt-3 flex items-center justify-between">
             <span className="text-[10px] uppercase tracking-[0.22em] text-ink-700/55">
-              {konamiArmed ? "Brainrot protocol unlocked" : "Konami code · armed?"}
+              {konamiArmed ? "Sequence unlocked" : "Hidden sequence available"}
             </span>
-            <span className="font-mono text-[10px] tracking-wider text-ink-700/55">
+            {/* Arrow legend is keyboard-only — hide on touch devices where it
+                can't be entered anyway. */}
+            <span className="hidden font-mono text-[10px] tracking-wider text-ink-700/55 [@media(hover:hover)]:inline-block">
               ↑ ↑ ↓ ↓ ← → ← → B A
             </span>
           </div>

@@ -16,13 +16,13 @@ export function Hero() {
       id="top"
       className="relative mx-auto w-full max-w-[1400px] px-6 pt-24 pb-12 sm:px-10 md:pt-32"
     >
-      {/* Bushido kanji watermark */}
+      {/* Single-kanji watermark — 創 (build/create). Lighter touch than the
+          full 武士道 phrase; reads as a brush mark, not a slogan. */}
       <span
         aria-hidden
-        className="pointer-events-none absolute -right-6 top-20 select-none font-brush text-[180px] leading-none text-ink-800/[0.06] md:text-[260px]"
-        style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+        className="pointer-events-none absolute -right-2 top-24 select-none font-brush text-[200px] leading-none text-ink-800/[0.05] md:text-[300px]"
       >
-        武士道
+        創
       </span>
 
       {/* Top grid — brush wordmark vs quote/weather */}
@@ -63,11 +63,11 @@ export function Hero() {
             className="mt-8 flex flex-wrap items-center gap-3"
           >
             <a
-              href="#education"
+              href="#projects"
               data-hover
               className="group inline-flex items-center gap-3 rounded-full bg-ink-800 px-6 py-3.5 text-sm font-medium tracking-tight text-sakura-100 transition hover:bg-crimson"
             >
-              <span>Enter the museum</span>
+              <span>View work</span>
               <span className="grid h-6 w-6 place-items-center rounded-full bg-sakura-100/15 transition group-hover:bg-sakura-100/25">
                 <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14" /><path d="M13 6l6 6-6 6" />
@@ -75,11 +75,11 @@ export function Hero() {
               </span>
             </a>
             <a
-              href="#projects"
+              href="mailto:johnpaul081023@gmail.com"
               data-hover
               className="inline-flex items-center gap-2 rounded-full border border-ink-800/15 bg-white/55 px-5 py-3.5 text-sm font-medium tracking-tight text-ink-800 transition hover:border-ink-800/30"
             >
-              Browse the garage
+              Hire me ↗
             </a>
           </motion.div>
 

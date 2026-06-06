@@ -1,11 +1,15 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 /**
- * Floating sakura + ink particles. CSS-only — each petal is a positioned <span>
- * with an SVG background and a long-duration `drift` animation. Cheap, repaints
- * stay off the main thread, and no requestAnimationFrame loop.
+ * Floating sakura + ink particles. CSS-only — each petal is a positioned
+ * <span> with an SVG background and a long-duration `drift` animation. Cheap,
+ * repaints stay off the main thread, no requestAnimationFrame loop.
+ *
+ * Visibility is scroll-aware: when the viewport overlaps the dark Project
+ * Garage (#projects), the whole layer fades out so pink petals never fly
+ * across a black slab.
  */
 const PETAL_SVG = encodeURIComponent(
   `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
@@ -65,8 +69,36 @@ function mulberry32(seed: number) {
 
 export function SakuraPetals({ count = 36 }: { count?: number }) {
   const particles = useMemo(() => build(42, count), [count]);
+  const layerRef = useRef<HTMLDivElement>(null);
+  const [dim, setDim] = useState(false);
+
+  /**
+   * Watch for elements with [data-dark-section] (the dark Project Garage stage
+   * carries this attribute). When one overlaps the viewport, fade the petal
+   * layer so pink particles don't blizzard across a black slab.
+   */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const dark = document.querySelectorAll<HTMLElement>("[data-dark-section]");
+    if (!dark.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        const anyVisible = entries.some((e) => e.isIntersecting);
+        setDim(anyVisible);
+      },
+      { rootMargin: "0px 0px 0px 0px", threshold: [0, 0.05] }
+    );
+    dark.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-[5] overflow-hidden">
+    <div
+      ref={layerRef}
+      aria-hidden
+      className="pointer-events-none fixed inset-0 -z-[5] overflow-hidden transition-opacity duration-700 ease-out"
+      style={{ opacity: dim ? 0 : 1 }}
+    >
       {particles.map((p, i) => (
         <span
           key={i}

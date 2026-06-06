@@ -16,8 +16,9 @@ export function Projects() {
       id="projects"
       className="relative mx-auto mt-16 w-full max-w-[1400px] px-6 pb-12 sm:px-10"
     >
-      {/* Stage — dark slab */}
+      {/* Stage — dark slab. data-dark-section signals SakuraPetals to fade. */}
       <div
+        data-dark-section
         className="relative overflow-hidden rounded-[32px] border border-ink-800/40 px-6 py-12 sm:px-10 md:py-16"
         style={{
           background:
@@ -42,7 +43,7 @@ export function Projects() {
         <div className="relative">
           <div className="flex items-center gap-3">
             <span className="block h-px w-10 bg-sakura-100/30" />
-            <span className="heading-eyebrow text-sakura-100/55">
+            <span className="heading-eyebrow text-sakura-100/75">
               Exhibition · Floor 02 — The Garage
             </span>
           </div>
@@ -61,7 +62,7 @@ export function Projects() {
             Each project is a machine. Built with precision. Tuned with passion.
             Driven by purpose.
           </p>
-          <p className="mt-1 font-brush text-sm text-sakura-100/45">
+          <p className="mt-1 font-brush text-sm text-sakura-100/70">
             プロジェクトガレージ
           </p>
         </div>
@@ -97,7 +98,7 @@ function CarBay({
       href={`/projects/${project.id}`}
       data-hover
       aria-label={`Open case study: ${project.name}`}
-      className="group relative block overflow-hidden rounded-2xl border border-sakura-100/8 transition will-change-transform hover:-translate-y-0.5"
+      className="group relative block overflow-hidden rounded-2xl border border-sakura-100/8 transition-all duration-300 will-change-transform hover:-translate-y-1.5 hover:shadow-[0_40px_60px_-30px_rgba(0,0,0,0.7)]"
       style={{
         background:
           "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 50%, rgba(255,255,255,0.0) 100%)",
@@ -107,10 +108,10 @@ function CarBay({
     >
       {/* Bay header bar */}
       <div className="flex items-center justify-between border-b border-sakura-100/8 px-4 py-2.5">
-        <span className="text-[10px] uppercase tracking-[0.22em] text-sakura-100/55">
+        <span className="text-[10px] uppercase tracking-[0.22em] text-sakura-100/75">
           Bay 0{index + 1}
         </span>
-        <span className="font-brush text-xs text-sakura-100/45">
+        <span className="font-brush text-xs text-sakura-100/70">
           {["創", "智", "走", "流"][index]}
         </span>
       </div>
@@ -143,7 +144,7 @@ function CarBay({
       <div className="border-t border-sakura-100/8 px-5 pt-4 pb-5">
         <div className="flex items-baseline justify-between gap-3">
           <div className="min-w-0">
-            <div className="text-[10px] uppercase tracking-[0.22em] text-sakura-100/45">
+            <div className="text-[10px] uppercase tracking-[0.22em] text-sakura-100/70">
               {project.carYear} · {project.carModel}
             </div>
             <h3 className="mt-1 truncate text-xl font-semibold tracking-tight text-sakura-100">
@@ -183,7 +184,7 @@ function CarBay({
         </div>
 
         <div className="mt-4 flex items-center justify-between border-t border-sakura-100/8 pt-3">
-          <span className="text-[10px] uppercase tracking-[0.22em] text-sakura-100/55">
+          <span className="text-[10px] uppercase tracking-[0.22em] text-sakura-100/75">
             View project
           </span>
           <span

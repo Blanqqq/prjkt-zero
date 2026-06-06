@@ -22,7 +22,7 @@ export function MusashiQuote() {
       </span>
 
       <blockquote className="font-brush text-[15px] leading-snug text-ink-800/90">
-        The way of the warrior is in resolute acceptance of death.
+        Today is victory over yourself of yesterday.
       </blockquote>
 
       <span className="mt-3 block h-px w-8 bg-ink-800/25" />

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import type { Project } from "./projectsConfig";
 
 /**
@@ -15,15 +16,13 @@ export function JDMCar({ project }: { project: Project }) {
   if (carImageSrc) {
     return (
       <div className="cinema-frame inline-block w-full max-w-[760px]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={carImageSrc}
           alt={project.carModel}
-          width={1600}
-          height={900}
+          width={1536}
+          height={1024}
+          sizes="(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw"
           className="cinema-img h-auto w-full object-contain drop-shadow-[0_24px_30px_rgba(17,17,17,0.24)]"
-          loading="lazy"
-          decoding="async"
         />
       </div>
     );

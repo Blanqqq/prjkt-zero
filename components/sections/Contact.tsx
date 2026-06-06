@@ -16,7 +16,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative mx-auto w-full max-w-[1400px] px-6 py-32 sm:px-10"
+      className="relative mx-auto w-full max-w-[1400px] px-6 py-24 sm:px-10"
     >
       <SectionHeading
         eyebrow="Exhibition · Floor 07"
