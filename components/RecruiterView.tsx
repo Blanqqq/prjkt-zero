@@ -22,21 +22,32 @@ export function RecruiterView() {
             <span className="block h-px w-10 bg-ink-800/30" />
             <span className="heading-eyebrow">Resume · 60s read</span>
           </div>
-          <button
-            type="button"
-            data-hover
-            data-print-hide
-            onClick={() => typeof window !== "undefined" && window.print()}
-            className="inline-flex items-center gap-2 rounded-full border border-ink-800/15 bg-white/55 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-ink-700/70 transition hover:border-ink-800/30 hover:text-ink-800"
-            aria-label="Download resume as PDF"
-          >
-            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 3v12" />
-              <path d="M7 10l5 5 5-5" />
-              <path d="M5 21h14" />
-            </svg>
-            Download PDF
-          </button>
+          <div className="flex items-center gap-2" data-print-hide>
+            <a
+              href="/resume.pdf"
+              download="john-paul-giftson-resume.pdf"
+              data-hover
+              className="inline-flex items-center gap-2 rounded-full border border-ink-800/15 bg-white/55 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-ink-700/70 transition hover:border-ink-800/30 hover:text-ink-800"
+              aria-label="Download resume as PDF"
+            >
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 3v12" />
+                <path d="M7 10l5 5 5-5" />
+                <path d="M5 21h14" />
+              </svg>
+              Download PDF
+            </a>
+            <button
+              type="button"
+              data-hover
+              onClick={() => typeof window !== "undefined" && window.print()}
+              className="hidden rounded-full border border-ink-800/15 bg-white/55 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-ink-700/70 transition hover:border-ink-800/30 hover:text-ink-800 sm:inline-flex sm:items-center"
+              aria-label="Print this view"
+              title="Print this view"
+            >
+              ⌘P
+            </button>
+          </div>
         </div>
         <motion.h1
           initial={{ opacity: 0, y: 12 }}

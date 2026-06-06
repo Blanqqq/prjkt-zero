@@ -10,6 +10,12 @@ export type CaseStudy = {
   future: string[];
 };
 
+export type ProjectStatus =
+  | { kind: "live"; label: string }
+  | { kind: "prototype"; label: string }
+  | { kind: "research"; label: string }
+  | { kind: "client"; label: string };
+
 export type Project = {
   id: string;
   name: string;
@@ -23,6 +29,11 @@ export type Project = {
    */
   carImageSrc?: string;
   mockup: "browser" | "ai" | "phone" | "workflow";
+  /**
+   * Explicit status — keeps the case study honest about prototype vs shipped.
+   * Senior eyes scan this first.
+   */
+  status: ProjectStatus;
   liveryPrimary: string;
   liveryAccent: string;
   tagline: string;
@@ -48,6 +59,7 @@ export const PROJECTS: Project[] = [
     car: "rx7",
     carImageSrc: "/cars/rx7.png",
     mockup: "browser",
+    status: { kind: "client", label: "Client delivery" },
     liveryPrimary: "#9D1B32",
     liveryAccent: "#FFFFFF",
     tagline: "A study in rotary smoothness — animation as the product.",
@@ -135,6 +147,7 @@ export const PROJECTS: Project[] = [
     car: "r34",
     carImageSrc: "/cars/r34.png",
     mockup: "ai",
+    status: { kind: "research", label: "Research · in development" },
     liveryPrimary: "#1A2B49",
     liveryAccent: "#55D6FF",
     tagline: "RB26 of decision systems — multi-agent consensus, tuned.",
@@ -221,6 +234,7 @@ export const PROJECTS: Project[] = [
     car: "supra",
     carImageSrc: "/cars/supra.png",
     mockup: "phone",
+    status: { kind: "prototype", label: "Portfolio build · prototype" },
     liveryPrimary: "#D4A84F",
     liveryAccent: "#1A1A1A",
     tagline: "Reliable like a 2JZ — straight-line throughput.",
@@ -308,6 +322,7 @@ export const PROJECTS: Project[] = [
     car: "nsx",
     carImageSrc: "/cars/nsx.png",
     mockup: "workflow",
+    status: { kind: "live", label: "Live · production" },
     liveryPrimary: "#E8E8EC",
     liveryAccent: "#9D1B32",
     tagline: "Mid-engine pragmatism — quiet automations that ship.",

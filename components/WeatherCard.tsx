@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react";
 
 /**
- * Hero weather/time card. Tokyo as the cultural anchor, current time updated
- * client-side every minute, fake "scattered petals" forecast for theme. Dark
- * card so it punches against the sakura backdrop.
+ * Hero weather/time card. Winnipeg local time — the actual location of the
+ * person behind the site, not a borrowed cultural anchor. Current time
+ * updated client-side every 30s. The "forecast" line is a small bit of
+ * personality, not a real weather pull (no API dependency).
  */
 function fmtTime(d: Date) {
-  // Tokyo wall-clock time, independent of the visitor's locale
   const f = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Asia/Tokyo",
+    timeZone: "America/Winnipeg",
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
@@ -20,12 +20,24 @@ function fmtTime(d: Date) {
 
 function fmtDate(d: Date) {
   const f = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Asia/Tokyo",
+    timeZone: "America/Winnipeg",
     month: "short",
     day: "numeric",
     year: "numeric",
   });
   return f.format(d).toUpperCase();
+}
+
+function forecast(d: Date) {
+  // Simple month-based mood line so the card has personality without an API.
+  const m = parseInt(
+    new Intl.DateTimeFormat("en-US", { timeZone: "America/Winnipeg", month: "numeric" }).format(d),
+    10
+  );
+  if (m >= 11 || m <= 2) return { temp: "−18", note: "Light snow" };
+  if (m === 3 || m === 4) return { temp: "+4", note: "Wind from the north" };
+  if (m >= 5 && m <= 8) return { temp: "+22", note: "Open sky" };
+  return { temp: "+9", note: "Clear and dry" };
 }
 
 export function WeatherCard() {
@@ -39,7 +51,8 @@ export function WeatherCard() {
 
   // Stable placeholder during SSR / pre-hydration
   const time = now ? fmtTime(now) : "—";
-  const date = now ? fmtDate(now) : "TOKYO STANDARD TIME";
+  const date = now ? fmtDate(now) : "CENTRAL TIME · WINNIPEG";
+  const f = now ? forecast(now) : { temp: "—", note: "Loading" };
 
   return (
     <div
@@ -51,7 +64,6 @@ export function WeatherCard() {
           "0 25px 50px -25px rgba(17,17,17,0.45), inset 0 1px 0 rgba(255,255,255,0.08)",
       }}
     >
-      {/* Tiny sakura particle in the corner — atmospheric */}
       <span
         aria-hidden
         className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full blur-2xl"
@@ -59,8 +71,8 @@ export function WeatherCard() {
       />
 
       <div className="flex items-baseline justify-between">
-        <span className="text-[10px] uppercase tracking-[0.32em] text-sakura-100/55">
-          Tokyo
+        <span className="text-[10px] uppercase tracking-[0.32em] text-sakura-100/75">
+          Winnipeg
         </span>
         <span
           aria-hidden
@@ -72,18 +84,18 @@ export function WeatherCard() {
         <div>
           <div className="flex items-baseline gap-1">
             <span className="text-4xl font-semibold tracking-tight text-sakura-100">
-              16
+              {f.temp}
             </span>
-            <span className="text-lg text-sakura-100/55">°C</span>
+            <span className="text-lg text-sakura-100/60">°C</span>
           </div>
-          <div className="mt-0.5 text-[10px] uppercase tracking-[0.22em] text-sakura-100/45">
-            Scattered petals
+          <div className="mt-0.5 text-[10px] uppercase tracking-[0.22em] text-sakura-100/65">
+            {f.note}
           </div>
         </div>
 
         <div className="text-right">
           <div className="font-mono text-base text-sakura-100/90">{time}</div>
-          <div className="mt-0.5 font-mono text-[10px] text-sakura-100/45">
+          <div className="mt-0.5 font-mono text-[10px] text-sakura-100/60">
             {date}
           </div>
         </div>

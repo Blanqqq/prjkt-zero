@@ -8,6 +8,7 @@ import { PhoneMockup } from "../mockups/PhoneMockup";
 import { WorkflowMockup } from "../mockups/WorkflowMockup";
 import { usePortfolio } from "../PortfolioContext";
 import { JDMCar } from "./JDMCar";
+import { StatusPill } from "./Projects";
 import { PROJECTS, type Project } from "./projectsConfig";
 
 /**
@@ -49,8 +50,11 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
           className="grid gap-10 lg:grid-cols-12"
         >
           <div className="lg:col-span-7">
-            <div className="heading-eyebrow">
-              {project.carModel} · {project.carYear}
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="heading-eyebrow">
+                {project.carModel} · {project.carYear}
+              </span>
+              <StatusPill status={project.status} />
             </div>
             <h1 className="brush-behind heading-display mt-4 text-[clamp(48px,8vw,112px)] text-ink-800">
               {project.name}

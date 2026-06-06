@@ -11,9 +11,9 @@ import { usePortfolio } from "./PortfolioContext";
  */
 const ICONS: { id: string; label: string; path: string }[] = [
   {
-    id: "education",
-    label: "Education",
-    path: "M3 9.5l9-5 9 5-9 5-9-5zM5 11v4l7 4 7-4v-4",
+    id: "about",
+    label: "About",
+    path: "M12 12a4 4 0 100-8 4 4 0 000 8zM4 20c0-4 4-6 8-6s8 2 8 6",
   },
   {
     id: "projects",
@@ -31,9 +31,9 @@ const ICONS: { id: string; label: string; path: string }[] = [
     path: "M14.7 6.3a4 4 0 11-5.4 5.4l-5.6 5.6 2 2 5.6-5.6a4 4 0 015.4-5.4z",
   },
   {
-    id: "hobbies",
-    label: "Hobbies",
-    path: "M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z",
+    id: "education",
+    label: "Education",
+    path: "M3 9.5l9-5 9 5-9 5-9-5zM5 11v4l7 4 7-4v-4",
   },
   {
     id: "contact",
@@ -103,7 +103,7 @@ export function SidebarRail() {
                 aria-current={isActive ? "location" : undefined}
                 aria-label={l.label}
                 title={l.label}
-                className="group relative grid h-9 w-9 place-items-center rounded-xl transition"
+                className="group relative grid h-9 w-9 place-items-center rounded-xl outline-none transition focus-visible:ring-2 focus-visible:ring-ink-800/50"
               >
                 {isActive && (
                   <motion.span
@@ -123,6 +123,14 @@ export function SidebarRail() {
                 >
                   <path d={l.path} />
                 </svg>
+
+                {/* Label flyout — visible on hover AND on keyboard focus */}
+                <span
+                  className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-ink-800 px-2.5 py-1 text-[11px] font-medium tracking-tight text-sakura-100 opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 sm:block"
+                  role="tooltip"
+                >
+                  {l.label}
+                </span>
               </a>
             );
           })}

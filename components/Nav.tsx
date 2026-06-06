@@ -6,11 +6,11 @@ import { usePortfolio } from "./PortfolioContext";
 import { RecruiterToggle } from "./RecruiterToggle";
 
 const LINKS_FULL = [
-  { id: "education", label: "Education" },
+  { id: "about", label: "About" },
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "skills", label: "Skills" },
-  { id: "hobbies", label: "Hobbies" },
+  { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ];
 

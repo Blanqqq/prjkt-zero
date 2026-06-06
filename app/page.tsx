@@ -4,6 +4,7 @@ import { usePortfolio } from "@/components/PortfolioContext";
 import { Hero } from "@/components/Hero";
 import { Projects } from "@/components/projects/Projects";
 import { RecruiterView } from "@/components/RecruiterView";
+import { About } from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
 import { Education } from "@/components/sections/Education";
 import { Experience } from "@/components/sections/Experience";
@@ -27,6 +28,8 @@ function FullExperience() {
   return (
     <main className="relative">
       <Hero />
+      <Divider kanji="人" />
+      <About />
       <Divider kanji="創" />
       <Projects />
       <Divider kanji="業" />

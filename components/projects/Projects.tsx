@@ -3,7 +3,41 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { JDMCar } from "./JDMCar";
-import { PROJECTS } from "./projectsConfig";
+import { PROJECTS, type ProjectStatus } from "./projectsConfig";
+
+export function StatusPill({
+  status,
+  dark = false,
+}: {
+  status: ProjectStatus;
+  dark?: boolean;
+}) {
+  // One dot color per kind — green = live, amber = in-dev, cyan = client, grey = prototype
+  const dot =
+    status.kind === "live"
+      ? "#28C840"
+      : status.kind === "research"
+        ? "#E8A53A"
+        : status.kind === "client"
+          ? "#55D6FF"
+          : "#A0A4AD";
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[9.5px] font-medium uppercase tracking-[0.18em] ${
+        dark
+          ? "border-sakura-100/15 bg-white/[0.04] text-sakura-100/80"
+          : "border-ink-800/15 bg-white/55 text-ink-700/75"
+      }`}
+    >
+      <span
+        aria-hidden
+        className={`block h-1.5 w-1.5 rounded-full ${status.kind === "live" ? "animate-pulse" : ""}`}
+        style={{ background: dot, boxShadow: `0 0 6px ${dot}` }}
+      />
+      {status.label}
+    </span>
+  );
+}
 
 /**
  * V2 Project Garage — a dark studio stage. Four cars on lit platforms, each
@@ -111,9 +145,7 @@ function CarBay({
         <span className="text-[10px] uppercase tracking-[0.22em] text-sakura-100/75">
           Bay 0{index + 1}
         </span>
-        <span className="font-brush text-xs text-sakura-100/70">
-          {["創", "智", "走", "流"][index]}
-        </span>
+        <StatusPill status={project.status} dark />
       </div>
 
       {/* Platform — car on a lit floor */}
