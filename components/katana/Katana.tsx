@@ -49,17 +49,17 @@ export function Katana({ variant, onCommit, index }: Props) {
       transition={{ duration: 0.9, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       className="group relative flex shrink-0 flex-col items-center bg-transparent outline-none focus-visible:ring-2 focus-visible:ring-ink-800/40 focus-visible:ring-offset-4 focus-visible:ring-offset-sakura-200 rounded-md"
     >
-      {/* Hover glow — soft, behind the blade */}
+      {/* Hover glow — soft and restrained. Supplied images already glow. */}
       <motion.span
         aria-hidden
         className="absolute left-1/2 top-1/2 h-[660px] w-[150px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
         animate={{
-          opacity: hover ? 0.5 : 0.12,
-          scale: hover ? 1.05 : 1,
+          opacity: hover ? 0.28 : 0.06,
+          scale: hover ? 1.03 : 1,
         }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         style={{
-          background: `radial-gradient(closest-side, ${variant.flame.outer}55, transparent 70%)`,
+          background: `radial-gradient(closest-side, ${variant.flame.outer}40, transparent 70%)`,
         }}
       />
 
@@ -71,16 +71,21 @@ export function Katana({ variant, onCommit, index }: Props) {
         {variant.imageSrc ? (
           // Drop-in photo path: rendered at the same height as the SVG so the
           // niche/pedestal dimensions stay constant whether real or vector.
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={variant.imageSrc}
-            alt={`${variant.label} katana`}
-            width={120}
-            height={540}
-            className="relative z-10 h-[540px] w-auto object-contain drop-shadow-[0_30px_40px_rgba(17,17,17,0.28)]"
-            loading="lazy"
-            decoding="async"
-          />
+          // .cinema-frame wraps the <img> with the global vignette + grain
+          // so supplied renders integrate with the site instead of looking
+          // pasted on.
+          <div className="cinema-frame relative z-10 inline-block">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={variant.imageSrc}
+              alt={`${variant.label} katana`}
+              width={120}
+              height={540}
+              className="cinema-img h-[540px] w-auto object-contain drop-shadow-[0_18px_24px_rgba(17,17,17,0.22)]"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         ) : (
         <svg
           width={90}

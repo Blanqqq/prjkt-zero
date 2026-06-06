@@ -14,16 +14,18 @@ export function JDMCar({ project }: { project: Project }) {
 
   if (carImageSrc) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={carImageSrc}
-        alt={project.carModel}
-        width={1600}
-        height={900}
-        className="h-auto w-full max-w-[760px] object-contain drop-shadow-[0_40px_50px_rgba(17,17,17,0.28)]"
-        loading="lazy"
-        decoding="async"
-      />
+      <div className="cinema-frame inline-block w-full max-w-[760px]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={carImageSrc}
+          alt={project.carModel}
+          width={1600}
+          height={900}
+          className="cinema-img h-auto w-full object-contain drop-shadow-[0_24px_30px_rgba(17,17,17,0.24)]"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
     );
   }
 

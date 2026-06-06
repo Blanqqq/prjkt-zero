@@ -117,12 +117,12 @@ function CarBay({
 
       {/* Platform — car on a lit floor */}
       <div className="relative px-3 pt-4">
-        {/* Floor light pool */}
+        {/* Floor light pool — restrained so the car's own studio lighting wins */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-x-6 bottom-2 h-8 rounded-full blur-md"
+          className="pointer-events-none absolute inset-x-10 bottom-3 h-6 rounded-full blur-lg"
           style={{
-            background: `radial-gradient(closest-side, ${project.liveryPrimary}60, transparent 70%)`,
+            background: `radial-gradient(closest-side, ${project.liveryPrimary}30, transparent 70%)`,
           }}
         />
         <div className="relative">

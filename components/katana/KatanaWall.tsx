@@ -93,11 +93,12 @@ function Pedestal({ accent, children }: { accent: string; children: React.ReactN
               "linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)",
           }}
         />
-        {/* Accent under-glow (variant flame color) */}
+        {/* Accent under-glow (variant flame color) — restrained on purpose;
+            the supplied images already carry their own bloom. */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-x-6 bottom-2 h-2 rounded-full blur-md"
-          style={{ background: accent, opacity: 0.35 }}
+          className="pointer-events-none absolute inset-x-8 bottom-2 h-1.5 rounded-full blur-md"
+          style={{ background: accent, opacity: 0.18 }}
         />
 
         {children}
