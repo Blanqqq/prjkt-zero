@@ -43,12 +43,20 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     setHydrated(true);
   }, []);
 
-  // Reflect mode on <html> so cursor:none can be gated cleanly in CSS
+  // Reflect mode on <html> so cursor:none can be gated cleanly in CSS.
+  // classList.toggle with explicit boolean is atomic and avoids any race
+  // where the class lingers after a Recruiter switch.
   useEffect(() => {
     if (typeof document === "undefined") return;
-    const cls = document.documentElement.classList;
-    if (hydrated && !recruiter) cls.add("cinematic");
-    else cls.remove("cinematic");
+    document.documentElement.classList.toggle(
+      "cinematic",
+      hydrated && !recruiter
+    );
+    return () => {
+      // On unmount (route change wouldn't trigger this, but just in case),
+      // strip the class so we never leave a Recruiter session with cursor:none.
+      document.documentElement.classList.remove("cinematic");
+    };
   }, [recruiter, hydrated]);
 
   const setRecruiter = useCallback((v: boolean) => {

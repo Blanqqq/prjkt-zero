@@ -33,13 +33,38 @@ body {
   overflow-x: hidden;
 }
 
-/* Hide native cursor on desktop only, and only when the custom cursor is
-   actually rendered (Exhibit mode). Recruiter Mode removes .cinematic so the
-   OS cursor returns and recruiters get a frictionless experience. */
+/* Cursor behaviour — explicit on BOTH sides so nothing can leak through.
+ *
+ *   .cinematic   → hide OS cursor; the custom dot+ring renders instead
+ *   default      → recruiter / SSR / pre-hydration → native OS cursor with
+ *                  pointer on interactive surfaces. cursor:auto wins over any
+ *                  stray rule (defense in depth).
+ */
 @media (hover: hover) and (pointer: fine) {
   html.cinematic body,
   html.cinematic body * {
     cursor: none !important;
+  }
+
+  /* Recruiter (and everything that isn't explicit Exhibit) — native cursor */
+  html:not(.cinematic) body,
+  html:not(.cinematic) body * {
+    cursor: auto !important;
+  }
+  html:not(.cinematic) a,
+  html:not(.cinematic) button,
+  html:not(.cinematic) [role="button"],
+  html:not(.cinematic) summary,
+  html:not(.cinematic) [data-hover] {
+    cursor: pointer !important;
+  }
+  html:not(.cinematic) input[type="text"],
+  html:not(.cinematic) input[type="email"],
+  html:not(.cinematic) input[type="search"],
+  html:not(.cinematic) input[type="tel"],
+  html:not(.cinematic) input[type="url"],
+  html:not(.cinematic) textarea {
+    cursor: text !important;
   }
 }
 
