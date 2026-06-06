@@ -40,6 +40,7 @@ export const KATANAS: KatanaVariant[] = [
     kanji: "学",
     subtitle: "The Forging",
     targetId: "education",
+    imageSrc: "/katanas/edu.png",
     blade: { base: "#EDEFF3", edge: "#FFFFFF", spine: "#B8BDC7", hamon: "#9AA3B2", sheen: "#FFFFFF" },
     tsuba: "disc",
     tsubaColor: "#D9DDE4",
@@ -54,6 +55,7 @@ export const KATANAS: KatanaVariant[] = [
     kanji: "創",
     subtitle: "The Build",
     targetId: "projects",
+    imageSrc: "/katanas/proj.png",
     blade: { base: "#0F1A26", edge: "#55D6FF", spine: "#0A1320", hamon: "#7BE3FF", sheen: "#A9EEFF" },
     tsuba: "gear",
     tsubaColor: "#1A2230",
@@ -68,6 +70,7 @@ export const KATANAS: KatanaVariant[] = [
     kanji: "業",
     subtitle: "The Campaigns",
     targetId: "experience",
+    imageSrc: "/katanas/exp.png",
     // Recolored to the warm copper-orange of the supplied katana render.
     blade: { base: "#2A1A14", edge: "#E8843A", spine: "#1A0E0A", hamon: "#F2A968", sheen: "#FFD4A8" },
     tsuba: "flower",
@@ -83,6 +86,7 @@ export const KATANAS: KatanaVariant[] = [
     kanji: "技",
     subtitle: "The Arsenal",
     targetId: "skills",
+    imageSrc: "/katanas/skill.png",
     blade: { base: "#1B1620", edge: "#C9B6FF", spine: "#0F0C14", hamon: "#A98CFF", sheen: "#E2D8FF" },
     tsuba: "square",
     tsubaColor: "#2A2236",
@@ -97,6 +101,7 @@ export const KATANAS: KatanaVariant[] = [
     kanji: "趣",
     subtitle: "Off Duty",
     targetId: "hobbies",
+    imageSrc: "/katanas/hob.png",
     // Recolored to the muted neon-green of the supplied render.
     blade: { base: "#0E1814", edge: "#5BCB7F", spine: "#08120D", hamon: "#9FE5B6", sheen: "#D8F5E2" },
     tsuba: "petal",
@@ -112,6 +117,7 @@ export const KATANAS: KatanaVariant[] = [
     kanji: "縁",
     subtitle: "The Pact",
     targetId: "contact",
+    imageSrc: "/katanas/ct.png",
     // Recolored to the cleaner red of the supplied render — vivid but not punchy.
     blade: { base: "#1C0E10", edge: "#D32E3F", spine: "#140709", hamon: "#E55E6E", sheen: "#FFD4DA" },
     tsuba: "wave",
