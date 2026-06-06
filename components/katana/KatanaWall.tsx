@@ -183,8 +183,4 @@ function Vitrine({
   );
 }
 
-// Re-export for compatibility with any consumer importing from this module
-export { Vitrine as Katana };
 export type { KatanaVariant };
-// Marker so old imports of <Katana> from ./Katana keep type-checking
-export const __KATANA_LAYOUT_VERSION = "v2.1-vitrine";

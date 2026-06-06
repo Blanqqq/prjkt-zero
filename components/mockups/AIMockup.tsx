@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useAutoplay } from "./useAutoplay";
 
 /**
  * Dashboard for the Evolutionary Consensus Engine. Five agents debate,
@@ -25,14 +25,10 @@ const MESSAGES = [
 ];
 
 export function AIMockup() {
-  const [step, setStep] = useState(0);
-  useEffect(() => {
-    const t = window.setInterval(() => setStep((s) => (s + 1) % (MESSAGES.length + 1)), 1600);
-    return () => window.clearInterval(t);
-  }, []);
+  const { step, ref } = useAutoplay(MESSAGES.length + 1, 1600);
 
   return (
-    <div className="relative mx-auto grid w-full max-w-[920px] grid-cols-1 gap-4 lg:grid-cols-12">
+    <div ref={ref} className="relative mx-auto grid w-full max-w-[920px] grid-cols-1 gap-4 lg:grid-cols-12">
       {/* Left — agent ring */}
       <div className="lg:col-span-5">
         <div className="washi-card relative overflow-hidden p-5">

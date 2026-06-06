@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useAutoplay } from "./useAutoplay";
 
 /**
  * macOS-style browser mockup that demos a motion-driven landing page inside.
@@ -9,14 +9,10 @@ import { useEffect, useState } from "react";
  * a hovering CTA, and shimmer reveal sell the "motion is the product" pitch.
  */
 export function BrowserMockup() {
-  const [frame, setFrame] = useState(0);
-  useEffect(() => {
-    const t = window.setInterval(() => setFrame((f) => (f + 1) % 3), 3200);
-    return () => window.clearInterval(t);
-  }, []);
+  const { step: frame, ref } = useAutoplay(3, 3200);
 
   return (
-    <div className="relative mx-auto w-full max-w-[860px]">
+    <div ref={ref} className="relative mx-auto w-full max-w-[860px]">
       <div className="rounded-2xl border border-ink-800/15 bg-white/80 shadow-[0_60px_80px_-40px_rgba(17,17,17,0.35)]">
         {/* Chrome */}
         <div className="flex items-center gap-2 border-b border-ink-800/10 bg-gradient-to-b from-white to-sakura-50 px-4 py-3">

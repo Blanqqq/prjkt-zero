@@ -99,7 +99,9 @@ body {
   color: rgba(17, 17, 17, 0.78);
 }
 
-/* Brush stroke layer behind big headings */
+/* Brush stroke layer behind big headings. Hand-traced path with subtle
+   tapered ends instead of a turbulence filter — stable across rerenders,
+   no flicker, no filter cost. */
 .brush-behind {
   position: relative;
   isolation: isolate;
@@ -109,7 +111,7 @@ body {
   position: absolute;
   inset: -8% -6%;
   z-index: -1;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 200'><defs><filter id='r'><feTurbulence baseFrequency='0.85' numOctaves='2' seed='4'/><feDisplacementMap in='SourceGraphic' scale='14'/></filter></defs><g filter='url(%23r)' fill='%23111111' opacity='0.07'><path d='M30 110 C 140 60, 280 170, 420 100 S 720 80, 780 130' stroke='%23111' stroke-width='38' fill='none' stroke-linecap='round'/></g></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 200' preserveAspectRatio='none'><path d='M30 130 Q 80 90, 160 110 Q 240 130, 320 100 Q 400 80, 500 110 Q 600 140, 700 100 Q 760 80, 780 110 L 780 140 Q 720 130, 660 145 Q 580 165, 480 140 Q 380 120, 300 150 Q 220 170, 140 145 Q 70 130, 30 150 Z' fill='%23111111' opacity='0.06'/><path d='M40 138 Q 120 118, 220 128 Q 320 138, 420 122 Q 540 108, 660 128 Q 740 138, 770 128' stroke='%23111111' stroke-width='1.5' fill='none' opacity='0.08' stroke-linecap='round'/></svg>");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   pointer-events: none;

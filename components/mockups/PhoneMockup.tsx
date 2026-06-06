@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useAutoplay } from "./useAutoplay";
 
 /**
  * iPhone 15-ish mockup that cycles through three screens of the delivery
@@ -11,16 +11,11 @@ import { useEffect, useState } from "react";
 const SCREENS = ["discover", "cart", "track"] as const;
 
 export function PhoneMockup() {
-  const [idx, setIdx] = useState(0);
-  useEffect(() => {
-    const t = window.setInterval(() => setIdx((i) => (i + 1) % SCREENS.length), 3200);
-    return () => window.clearInterval(t);
-  }, []);
-
+  const { step: idx, ref } = useAutoplay(SCREENS.length, 3200);
   const screen = SCREENS[idx];
 
   return (
-    <div className="relative mx-auto flex w-full max-w-[820px] items-center justify-center gap-8 sm:gap-12">
+    <div ref={ref} className="relative mx-auto flex w-full max-w-[820px] items-center justify-center gap-8 sm:gap-12">
       {/* Side caption */}
       <div className="hidden max-w-[200px] sm:block">
         <div className="heading-eyebrow">UX preview</div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useAutoplay } from "./useAutoplay";
 
 /**
  * n8n-style horizontal node graph for the content automation project.
@@ -18,11 +18,7 @@ const NODES = [
 ];
 
 export function WorkflowMockup() {
-  const [tick, setTick] = useState(0);
-  useEffect(() => {
-    const t = window.setInterval(() => setTick((s) => (s + 1) % (NODES.length + 2)), 900);
-    return () => window.clearInterval(t);
-  }, []);
+  const { step: tick, ref } = useAutoplay(NODES.length + 2, 900);
 
   const runId = "run_0824";
   const runs = [
@@ -35,7 +31,7 @@ export function WorkflowMockup() {
   ];
 
   return (
-    <div className="mx-auto w-full max-w-[920px]">
+    <div ref={ref} className="mx-auto w-full max-w-[920px]">
       <div className="washi-card overflow-hidden p-0">
         {/* Toolbar */}
         <div className="flex items-center justify-between border-b border-ink-800/10 bg-white/55 px-4 py-2 text-[11px]">
