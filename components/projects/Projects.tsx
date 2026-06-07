@@ -53,27 +53,22 @@ export function Projects() {
       {/* Stage — dark slab. data-dark-section signals SakuraPetals to fade. */}
       <div
         data-dark-section
-        className="relative overflow-hidden rounded-[32px] border border-ink-800/40 px-6 py-12 sm:px-10 md:py-16"
+        className="relative overflow-hidden rounded-[28px] border border-ink-800/40 px-6 py-12 sm:px-10 md:py-14"
         style={{
           background:
-            "radial-gradient(120% 80% at 50% 0%, #1A1A22 0%, #0C0C12 60%, #07070B 100%)",
+            "radial-gradient(120% 80% at 50% 0%, #14141A 0%, #0A0A10 60%, #06060A 100%)",
           boxShadow:
-            "0 60px 100px -50px rgba(17,17,17,0.6), inset 0 1px 0 rgba(255,255,255,0.06)",
+            "0 40px 80px -45px rgba(17,17,17,0.55), inset 0 1px 0 rgba(255,255,255,0.04)",
         }}
       >
-        {/* Stage atmosphere — spotlights from above */}
+        {/* Single restrained overhead wash — was two competing spotlights */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-24 left-[10%] h-56 w-[35%] rounded-full blur-3xl"
-          style={{ background: "radial-gradient(closest-side, rgba(255,255,255,0.16), transparent 70%)" }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-24 right-[10%] h-56 w-[35%] rounded-full blur-3xl"
-          style={{ background: "radial-gradient(closest-side, rgba(157,27,50,0.15), transparent 70%)" }}
+          className="pointer-events-none absolute -top-28 left-1/2 h-56 w-[60%] -translate-x-1/2 rounded-full blur-3xl"
+          style={{ background: "radial-gradient(closest-side, rgba(255,255,255,0.08), transparent 70%)" }}
         />
 
-        {/* Heading */}
+        {/* Heading — typographic, brush kanji removed from header line */}
         <div className="relative">
           <div className="flex items-center gap-3">
             <span className="block h-px w-10 bg-sakura-100/30" />
@@ -81,23 +76,11 @@ export function Projects() {
               Exhibition · Floor 02 — The Garage
             </span>
           </div>
-          <div className="brush-behind mt-4 flex items-end gap-5">
-            <span className="font-brush text-6xl leading-none text-sakura-100/85 sm:text-7xl">
-              創
-            </span>
-            <h2
-              className="heading-display text-[clamp(48px,8vw,108px)] text-sakura-100"
-              style={{ textShadow: "0 30px 40px rgba(0,0,0,0.4)" }}
-            >
-              Project Garage
-            </h2>
-          </div>
-          <p className="mt-4 max-w-xl text-[15px] leading-snug text-sakura-100/70">
-            Each project is a machine. Built with precision. Tuned with passion.
-            Driven by purpose.
-          </p>
-          <p className="mt-1 font-brush text-sm text-sakura-100/70">
-            プロジェクトガレージ
+          <h2 className="heading-display mt-4 text-[clamp(44px,7vw,96px)] text-sakura-100">
+            Project Garage
+          </h2>
+          <p className="mt-4 max-w-xl text-[15px] leading-snug text-sakura-100/75">
+            Four builds, four lessons. Each car is a doorway into the case study.
           </p>
         </div>
 
@@ -148,16 +131,9 @@ function CarBay({
         <StatusPill status={project.status} dark />
       </div>
 
-      {/* Platform — car on a lit floor */}
-      <div className="relative px-3 pt-4">
-        {/* Floor light pool — restrained so the car's own studio lighting wins */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-x-10 bottom-3 h-6 rounded-full blur-lg"
-          style={{
-            background: `radial-gradient(closest-side, ${project.liveryPrimary}30, transparent 70%)`,
-          }}
-        />
+      {/* Platform — car on a quieter floor */}
+      <div className="relative px-3 pt-3">
+        {/* Floor light pool removed; the bay backplate now does the lighting */}
         <div className="relative">
           <JDMCar project={project} />
         </div>

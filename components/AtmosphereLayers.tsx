@@ -16,41 +16,21 @@ export function AtmosphereLayers() {
       {/* Layer 3 — museum lighting (top spots + bottom crimson wash) */}
       <div className="absolute inset-0 museum-lights" />
 
-      {/* Layer 4 — large brush-stroke whisper, top-right */}
+      {/* Layer 4 — single brush whisper, very low opacity. Was two competing
+          decorative shapes; one is enough and stays quiet. */}
       <svg
-        className="absolute -top-24 -right-24 w-[80vw] max-w-[1100px] opacity-[0.05] mix-blend-multiply"
+        className="absolute -top-32 -right-32 w-[70vw] max-w-[1000px] opacity-[0.028] mix-blend-multiply"
         viewBox="0 0 1000 600"
         fill="none"
+        aria-hidden
       >
-        <defs>
-          <filter id="brush-rough">
-            <feTurbulence baseFrequency="0.9" numOctaves="2" seed="7" />
-            <feDisplacementMap in="SourceGraphic" scale="20" />
-          </filter>
-        </defs>
-        <g filter="url(#brush-rough)" fill="#111111">
-          <path d="M40 360 C 220 220, 460 460, 660 280 S 940 220, 990 320 L 990 360 C 820 280, 600 540, 400 380 S 120 460, 40 400 Z" />
-        </g>
+        <path
+          d="M40 360 C 220 220, 460 460, 660 280 S 940 220, 990 320 L 990 360 C 820 280, 600 540, 400 380 S 120 460, 40 400 Z"
+          fill="#111111"
+        />
       </svg>
 
-      {/* Layer 5 — second brush whisper, bottom-left */}
-      <svg
-        className="absolute -bottom-32 -left-32 w-[70vw] max-w-[900px] opacity-[0.045] mix-blend-multiply"
-        viewBox="0 0 1000 600"
-        fill="none"
-      >
-        <defs>
-          <filter id="brush-rough-2">
-            <feTurbulence baseFrequency="1.1" numOctaves="2" seed="3" />
-            <feDisplacementMap in="SourceGraphic" scale="18" />
-          </filter>
-        </defs>
-        <g filter="url(#brush-rough-2)" fill="#9D1B32">
-          <path d="M20 320 C 280 180, 540 420, 760 260 S 980 320, 990 360 L 990 420 C 800 320, 600 540, 380 380 S 120 460, 20 420 Z" />
-        </g>
-      </svg>
-
-      {/* Layer 6 — vignette pull */}
+      {/* Layer 5 — vignette pull */}
       <div
         className="absolute inset-0"
         style={{

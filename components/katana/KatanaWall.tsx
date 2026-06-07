@@ -2,18 +2,16 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import { useCallback, useState } from "react";
 import { KATANAS, type KatanaVariant } from "./katanaConfig";
 
 /**
- * V2.1 katana display — horizontal vitrine grid.
+ * V2.2 katana display — quieter vitrine grid.
  *
- * The supplied renders are landscape 1536×1024 — blades laid on horizontal
- * display rests. The previous vertical-pedestal layout fought the assets and
- * overflowed. This redesign matches the image orientation: each blade lives
- * in its own recessed museum case, three across on desktop, two on tablet,
- * one stacked on mobile. Clicking a case unsheathes and routes to the section.
+ * Art-direction pass: the blades are now silhouette-leaning artifacts, not
+ * advertised products. Each vitrine is smaller, the plaques are typographic
+ * (not decorative), the under-glow is per-variant rim-light only. The grid
+ * supports the content; it doesn't compete with it.
  */
 export function KatanaWall() {
   const commit = useCallback((targetId: string) => {
@@ -24,7 +22,7 @@ export function KatanaWall() {
 
   return (
     <div className="relative">
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {KATANAS.map((variant, i) => (
           <Vitrine
             key={variant.id}
@@ -35,7 +33,7 @@ export function KatanaWall() {
         ))}
       </div>
 
-      <p className="mx-auto mt-8 max-w-xl text-center text-[11px] tracking-[0.28em] uppercase text-ink-700/55">
+      <p className="mx-auto mt-6 max-w-xl text-center text-[10px] tracking-[0.32em] uppercase text-ink-700/45">
         Select a blade · 抜刀
       </p>
     </div>
@@ -65,104 +63,86 @@ function Vitrine({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10% 0px" }}
-      transition={{ duration: 0.8, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
     >
       <button
         type="button"
         onClick={onClick}
         data-hover
         aria-label={`${variant.label} — open section`}
-        className="group relative block w-full overflow-hidden rounded-2xl border border-ink-800/12 text-left outline-none focus-visible:ring-2 focus-visible:ring-ink-800/40 focus-visible:ring-offset-2 focus-visible:ring-offset-sakura-100"
+        className="group relative block w-full overflow-hidden rounded-2xl border border-ink-800/10 text-left outline-none transition-shadow duration-300 focus-visible:ring-2 focus-visible:ring-ink-800/40 focus-visible:ring-offset-2 focus-visible:ring-offset-sakura-100 hover:shadow-[0_28px_50px_-30px_rgba(17,17,17,0.18)]"
         style={{
           background:
-            "linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.25) 60%, rgba(255,228,236,0.4) 100%)",
-          boxShadow:
-            "0 1px 0 rgba(255,255,255,0.7) inset, 0 30px 50px -30px rgba(17,17,17,0.18)",
+            "linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.18) 60%, rgba(255,228,236,0.32) 100%)",
         }}
       >
-        {/* Bay top hairline + livery accent */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-[2px]"
-          style={{
-            background: `linear-gradient(90deg, transparent, ${variant.flame.outer}aa, transparent)`,
-          }}
-        />
-
-        {/* Vitrine label rail (top) */}
-        <div className="flex items-center justify-between px-4 pt-3">
-          <span className="text-[10px] uppercase tracking-[0.22em] text-ink-700/55">
-            Bay 0{index + 1} · {variant.subtitle}
-          </span>
-          <span className="font-brush text-base text-ink-800/70">
-            {variant.kanji}
-          </span>
-        </div>
-
-        {/* Image — sits inside a recessed dark display area */}
-        <div className="cinema-frame relative mt-2 mx-3 mb-3 overflow-hidden rounded-xl">
-          {/* Dark recessed display backplate (the case interior) */}
+        {/* Display area */}
+        <div className="cinema-frame relative aspect-[3/2] overflow-hidden">
+          {/* Dark recessed backplate — uniform across all six */}
           <span
             aria-hidden
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(120% 90% at 50% 40%, #1A1A20 0%, #0C0C12 70%, #07070B 100%)",
+                "radial-gradient(120% 90% at 50% 40%, #14141A 0%, #0A0A0F 70%, #06060A 100%)",
             }}
           />
-          {/* Accent under-glow per blade */}
+
+          {/* Per-variant rim light — color influences, doesn't dominate */}
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-x-12 bottom-3 h-3 rounded-full blur-xl"
-            style={{ background: variant.flame.outer, opacity: 0.22 }}
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background: `radial-gradient(140% 70% at 50% 80%, ${variant.flame.outer}1A 0%, transparent 60%)`,
+              mixBlendMode: "screen",
+            }}
           />
 
           <motion.div
-            className="relative"
+            className="relative h-full w-full"
             animate={{
-              x: phase === "drawing" ? -32 : 0,
-              opacity: phase === "drawing" ? 0.7 : 1,
+              x: phase === "drawing" ? -24 : 0,
+              opacity: phase === "drawing" ? 0.6 : 1,
             }}
             transition={{ duration: reduceMotion ? 0.001 : 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
             <Image
               src={variant.imageSrc!}
               alt={`${variant.label} katana`}
-              width={1536}
-              height={1024}
-              sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+              fill
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               priority={index < 3}
-              className="cinema-img relative z-10 block h-auto w-full transition duration-700 will-change-transform group-hover:scale-[1.02]"
+              className="cinema-img relative z-10 object-cover transition duration-500 will-change-transform group-hover:scale-[1.015]"
             />
           </motion.div>
 
-          {/* Glass top sheen */}
+          {/* Glass sheen — top hairline */}
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-12 z-20"
+            className="pointer-events-none absolute inset-x-0 top-0 z-20 h-8"
             style={{
               background:
-                "linear-gradient(180deg, rgba(255,255,255,0.18), transparent 90%)",
+                "linear-gradient(180deg, rgba(255,255,255,0.12), transparent 90%)",
             }}
           />
         </div>
 
-        {/* Plaque (brass-style label, brushed steel hairline) */}
-        <div className="flex items-center justify-between border-t border-ink-800/10 bg-white/30 px-4 py-3 backdrop-blur-sm">
-          <div>
-            <div className="text-sm font-semibold tracking-tight text-ink-800">
-              {variant.label}
+        {/* Plaque — typographic, not decorative */}
+        <div className="flex items-center justify-between gap-3 border-t border-ink-800/8 bg-white/35 px-4 py-3 backdrop-blur-sm">
+          <div className="min-w-0">
+            <div className="text-[9.5px] uppercase tracking-[0.24em] text-ink-700/55">
+              0{index + 1} · {variant.subtitle}
             </div>
-            <div className="mt-0.5 text-[10px] uppercase tracking-[0.22em] text-ink-700/55">
-              抜刀 · Unsheathe
+            <div className="mt-0.5 truncate text-sm font-semibold tracking-tight text-ink-800">
+              {variant.label}
             </div>
           </div>
           <span
             aria-hidden
-            className="grid h-7 w-7 place-items-center rounded-full bg-ink-800 text-sakura-100 transition group-hover:bg-crimson"
+            className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-ink-800 text-sakura-100 transition group-hover:bg-crimson"
           >
             <svg
               viewBox="0 0 24 24"

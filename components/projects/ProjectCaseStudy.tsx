@@ -56,7 +56,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
               </span>
               <StatusPill status={project.status} />
             </div>
-            <h1 className="brush-behind heading-display mt-4 text-[clamp(48px,8vw,112px)] text-ink-800">
+            <h1 className="heading-display mt-4 text-[clamp(48px,8vw,112px)] text-ink-800">
               {project.name}
             </h1>
             <p className="mt-6 max-w-xl text-[clamp(18px,1.7vw,22px)] leading-snug text-ink-700/80">

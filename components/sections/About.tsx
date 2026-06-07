@@ -84,8 +84,8 @@ export function About() {
             <span className="block h-px w-10 bg-ink-800/30" />
             <span className="heading-eyebrow">Exhibition · Floor 01 — About</span>
           </div>
-          <h2 className="brush-behind heading-display mt-4 text-[clamp(40px,6vw,84px)] text-ink-800">
-            About <span className="font-brush italic">me</span>
+          <h2 className="heading-display mt-4 text-[clamp(40px,6vw,84px)] text-ink-800">
+            About me
           </h2>
 
           <div className="mt-6 max-w-2xl space-y-4 text-body">

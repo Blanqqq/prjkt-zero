@@ -16,11 +16,10 @@ export function Hero() {
       id="top"
       className="relative mx-auto w-full max-w-[1400px] px-6 pt-24 pb-12 sm:px-10 md:pt-32"
     >
-      {/* Single-kanji watermark — 創 (build/create). Lighter touch than the
-          full 武士道 phrase; reads as a brush mark, not a slogan. */}
+      {/* Single-kanji watermark — 創 (build/create), barely-there. */}
       <span
         aria-hidden
-        className="pointer-events-none absolute -right-2 top-24 select-none font-brush text-[200px] leading-none text-ink-800/[0.05] md:text-[300px]"
+        className="pointer-events-none absolute -right-4 top-32 select-none font-brush text-[180px] leading-none text-ink-800/[0.035] md:text-[260px]"
       >
         創
       </span>
@@ -38,22 +37,22 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="brush-behind mt-4 font-brush text-[clamp(72px,11vw,168px)] font-medium leading-[0.92] tracking-[-0.02em] text-ink-800"
+            className="heading-display mt-4 text-[clamp(64px,10vw,148px)] text-ink-800"
           >
-            John Paul
-            <br />
-            <span className="italic">Giftson</span>
+            John Paul Giftson
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.15 }}
-            className="mt-6 max-w-xl text-[clamp(16px,1.6vw,20px)] leading-snug text-ink-700/80"
+            className="mt-6 max-w-xl text-[clamp(17px,1.6vw,21px)] leading-snug text-ink-700/80"
           >
-            Engineer. Creator. Problem solver.
+            AI &amp; Machine Learning engineer in training.
             <br />
-            <span className="text-ink-800">I build things that matter.</span>
+            <span className="text-ink-800">
+              I build things that matter — and try to make them last.
+            </span>
           </motion.p>
 
           <motion.div
