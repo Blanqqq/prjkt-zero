@@ -79,33 +79,14 @@ function Vitrine({
             "linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.18) 60%, rgba(255,228,236,0.32) 100%)",
         }}
       >
-        {/* Display area */}
-        <div className="cinema-frame relative aspect-[3/2] overflow-hidden">
-          {/* Dark recessed backplate — uniform across all six */}
-          <span
-            aria-hidden
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(120% 90% at 50% 40%, #14141A 0%, #0A0A0F 70%, #06060A 100%)",
-            }}
-          />
-
-          {/* Per-variant rim light — color influences, doesn't dominate */}
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background: `radial-gradient(140% 70% at 50% 80%, ${variant.flame.outer}1A 0%, transparent 60%)`,
-              mixBlendMode: "screen",
-            }}
-          />
-
+        {/* Display area. The wireframe-on-black image carries its own
+            backplate — no redundant gradient stack. */}
+        <div className="cinema-frame relative aspect-[3/2] overflow-hidden bg-[#06060A]">
           <motion.div
             className="relative h-full w-full"
             animate={{
               x: phase === "drawing" ? -24 : 0,
-              opacity: phase === "drawing" ? 0.6 : 1,
+              opacity: phase === "drawing" ? 0.65 : 1,
             }}
             transition={{ duration: reduceMotion ? 0.001 : 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -119,13 +100,14 @@ function Vitrine({
             />
           </motion.div>
 
-          {/* Glass sheen — top hairline */}
+          {/* Very faint per-variant rim light at the bottom — color
+              influences the atmosphere, doesn't dominate */}
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 z-20 h-8"
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-12"
             style={{
-              background:
-                "linear-gradient(180deg, rgba(255,255,255,0.12), transparent 90%)",
+              background: `linear-gradient(180deg, transparent, ${variant.flame.outer}1A)`,
+              mixBlendMode: "screen",
             }}
           />
         </div>

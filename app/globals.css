@@ -172,10 +172,13 @@ body {
 }
 
 .cinema-img {
+  /* Wireframe-on-black source assets need almost no post-processing —
+     the silhouette is already baked in. Just a faint global grade for
+     family consistency. */
   filter:
-    saturate(0.55)
-    contrast(1.18)
-    brightness(0.78);
+    saturate(0.92)
+    contrast(1.05)
+    brightness(0.96);
   transition: filter 400ms ease;
   will-change: filter;
 }
@@ -185,6 +188,8 @@ body {
   isolation: isolate;
 }
 .cinema-frame::after {
+  /* Vignette is now very subtle — wireframe assets already fade to
+     black at the edges, so we only need a whisper to integrate */
   content: "";
   position: absolute;
   inset: 0;
@@ -192,9 +197,9 @@ body {
   pointer-events: none;
   background:
     radial-gradient(
-      120% 100% at 50% 40%,
-      transparent 40%,
-      rgba(0, 0, 0, 0.55) 100%
+      130% 110% at 50% 50%,
+      transparent 70%,
+      rgba(0, 0, 0, 0.22) 100%
     );
   mix-blend-mode: multiply;
 }
