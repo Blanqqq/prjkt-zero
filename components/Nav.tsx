@@ -112,6 +112,17 @@ export function Nav() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Contender link — discoverable but quiet, hidden in Recruiter mode */}
+          {!recruiter && (
+            <a
+              href="/v3"
+              data-hover
+              className="hidden text-[10px] font-medium uppercase tracking-[0.22em] text-ink-700/60 transition hover:text-ink-800 md:inline-block"
+              title="v3 contender — alternate visual direction"
+            >
+              v3 ↗
+            </a>
+          )}
           <RecruiterToggle />
           <a
             href="mailto:johnpaul081023@gmail.com"
