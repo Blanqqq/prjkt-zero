@@ -12,13 +12,8 @@ import { Hobbies } from "@/components/sections/Hobbies";
 import { Skills } from "@/components/sections/Skills";
 
 export default function Home() {
-  const { recruiter, hydrated } = usePortfolio();
-
-  if (!hydrated) {
-    // Defer to avoid a flash of the wrong mode; render Exhibit by default
-    // after first paint via the provider's effect.
-    return <FullExperience />;
-  }
+  const { recruiter } = usePortfolio();
+  // recruiter is seeded from the cookie at SSR, so first paint is already correct.
   return recruiter ? <RecruiterView /> : <FullExperience />;
 }
 

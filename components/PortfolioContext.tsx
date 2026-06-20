@@ -23,25 +23,37 @@ type Ctx = {
 const PortfolioCtx = createContext<Ctx | null>(null);
 const KEY = "pz_recruiter";
 
-export function PortfolioProvider({ children }: { children: React.ReactNode }) {
-  const [recruiter, setRecruiterState] = useState(false);
+export function PortfolioProvider({
+  children,
+  initialRecruiter = false,
+}: {
+  children: React.ReactNode;
+  /** Server-read cookie value so first paint matches the user's last choice. */
+  initialRecruiter?: boolean;
+}) {
+  const [recruiter, setRecruiterState] = useState(initialRecruiter);
   const [hydrated, setHydrated] = useState(false);
 
-  // Hydrate from URL or localStorage
+  // Reconcile with URL (?r=) and localStorage after mount. The cookie already
+  // seeded the correct value at SSR, so this only matters for ?r= deep links or
+  // a localStorage value set in another tab.
   useEffect(() => {
-    let next = false;
+    let next = initialRecruiter;
     try {
       const url = new URL(window.location.href);
       const fromUrl = url.searchParams.get("r");
       if (fromUrl === "1") next = true;
       else if (fromUrl === "0") next = false;
-      else next = window.localStorage.getItem(KEY) === "1";
+      else {
+        const stored = window.localStorage.getItem(KEY);
+        if (stored !== null) next = stored === "1";
+      }
     } catch {
       // ignore
     }
     setRecruiterState(next);
     setHydrated(true);
-  }, []);
+  }, [initialRecruiter]);
 
   // Reflect mode on <html> so cursor:none can be gated cleanly in CSS.
   // classList.toggle with explicit boolean is atomic and avoids any race
@@ -63,6 +75,8 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     setRecruiterState(v);
     try {
       window.localStorage.setItem(KEY, v ? "1" : "0");
+      // Cookie lets the server render the correct view on the next load (no flash).
+      document.cookie = `${KEY}=${v ? "1" : "0"}; path=/; max-age=31536000; samesite=lax`;
       const url = new URL(window.location.href);
       if (v) url.searchParams.set("r", "1");
       else url.searchParams.delete("r");

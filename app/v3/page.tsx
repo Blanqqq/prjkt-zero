@@ -22,9 +22,8 @@ import { SectionIndex } from "@/components/v3/SectionIndex";
  * of which homepage composition is active.
  */
 export default function V3Page() {
-  const { recruiter, hydrated } = usePortfolio();
-
-  if (!hydrated) return <V3Experience />;
+  const { recruiter } = usePortfolio();
+  // recruiter is seeded from the cookie at SSR, so first paint is already correct.
   return recruiter ? <RecruiterView /> : <V3Experience />;
 }
 

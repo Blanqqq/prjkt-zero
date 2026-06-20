@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { cookies } from "next/headers";
 import { AppFrame } from "@/components/AppFrame";
 import { PortfolioProvider } from "@/components/PortfolioContext";
 import { SITE_URL } from "@/lib/site";
@@ -76,9 +77,14 @@ const PERSON_LD = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Seed Recruiter Mode from the cookie so the server renders the correct view
+  // on first paint (no Exhibit→Recruiter flash for returning recruiters).
+  const cookieStore = await cookies();
+  const initialRecruiter = cookieStore.get("pz_recruiter")?.value === "1";
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
@@ -96,7 +102,7 @@ export default function RootLayout({
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_LD) }}
         />
-        <PortfolioProvider>
+        <PortfolioProvider initialRecruiter={initialRecruiter}>
           <AppFrame>{children}</AppFrame>
         </PortfolioProvider>
       </body>
