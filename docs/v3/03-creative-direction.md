@@ -1,6 +1,6 @@
 # Deliverable 3 — Creative Direction (v0)
 
-> **Status: v0.** Built from the locked brief + Stitch base hero. To be enriched after D2 (competitive) and D4 (moodboard) once research MCPs connect.
+> **Status: v1.** Now informed by [D2 competitive analysis](02-competitive-analysis.md). Still to fold in: D4 moodboard imagery once Exa/Firecrawl connect.
 
 ## One line
 *A futuristic Japanese shrine for an AI/ML engineer's craft — calm, rare, and made by someone obsessive about detail.*
@@ -26,7 +26,12 @@ Curiosity → intrigue → sophistication → trust. The visitor should feel the
 ## Tone of voice
 Honest student seeking AI/ML roles — confident, specific, measured. Numbers over adjectives. No senior-IC cosplay.
 
-## To resolve in v1 (post-research)
-- Exact motion vocabulary for "ink reveal" and blade transitions (ref Resn/Active Theory restraint, not maximalism).
-- Whether a hero atmospheric asset (generated) earns its weight against pure negative space.
-- Final Projects layout (grid vs carousel vs stack).
+## Resolved by D2 (competitive analysis)
+- **Lane:** Camp B — editorial craft (Linear/Vercel/Spatzek), borrowing exactly one Camp A idea (exploration-as-navigation). No WebGL world: wrong cost, wrong signal for an ML engineer.
+- **Differentiator:** the single-blade SectionIndex *is* the "navigate-to-enter" mechanic. It gets the most craft (D5 timing/physics pass).
+- **Projects layout:** asymmetric editorial grid, content-led — confirmed (shipped in ProjectsV3).
+- **First impression:** add one signature reveal to the hero — candidate: a sumi-e ink wipe on the wordmark — reduced-motion-safe, to raise the Spatzek-style landing ceiling without spectacle.
+
+## Still open (needs D4 imagery / your call)
+- Whether a generated atmospheric asset earns its weight vs. pure negative space (D6, on tool connect).
+- Final ink-reveal vocabulary — prototype in code, per Rauno's "build, don't mock."
