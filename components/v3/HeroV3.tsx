@@ -34,15 +34,13 @@ export function HeroV3() {
           <span className="heading-eyebrow">AI / ML Engineer · Open to roles · 構築中</span>
         </Reveal>
 
-        <Reveal
-          as="h1"
-          delay={80}
-          className="heading-display mt-6 text-[clamp(56px,11vw,168px)] text-ink-800"
-        >
+        {/* Signature ink-wipe reveal (see globals.css .ink-wipe). Plain <h1>
+            so SSR ships it visible; the wipe only runs when JS is present. */}
+        <h1 className="heading-display ink-wipe mt-6 text-[clamp(56px,11vw,168px)] text-ink-800">
           John Paul
           <br />
           Giftson
-        </Reveal>
+        </h1>
 
         <Reveal
           as="p"
