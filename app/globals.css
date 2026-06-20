@@ -87,7 +87,9 @@ body {
   letter-spacing: 0.32em;
   text-transform: uppercase;
   font-size: 11px;
-  color: rgba(17, 17, 17, 0.55);
+  /* 0.70, not 0.55 — at 11px the lighter ink failed WCAG AA on sakura
+     (~3.98:1); 0.70 lifts it to ~6.5:1 while staying a quiet label (audit A11). */
+  color: rgba(17, 17, 17, 0.7);
 }
 
 .text-body {
