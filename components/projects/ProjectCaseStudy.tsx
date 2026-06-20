@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { Reveal } from "../motion/Reveal";
 import { AIMockup } from "../mockups/AIMockup";
 import { BrowserMockup } from "../mockups/BrowserMockup";
 import { PhoneMockup } from "../mockups/PhoneMockup";
@@ -43,10 +43,8 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </div>
 
         {/* HERO */}
-        <motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        <Reveal
+          as="section"
           className="grid gap-10 lg:grid-cols-12"
         >
           <div className="lg:col-span-7">
@@ -95,7 +93,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
               <JDMCar project={project} />
             </div>
           </div>
-        </motion.section>
+        </Reveal>
 
         {/* MOCKUP */}
         <section id="mockup" className="mt-24 scroll-mt-24 md:mt-32">
@@ -109,18 +107,15 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
             <span className="font-brush text-xl text-ink-800/40">体験</span>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10% 0px" }}
-            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          <Reveal
+            as="div"
             className="washi-card relative overflow-hidden p-6 sm:p-10"
           >
             {project.mockup === "browser" && <BrowserMockup />}
             {project.mockup === "ai" && <AIMockup />}
             {project.mockup === "phone" && <PhoneMockup />}
             {project.mockup === "workflow" && <WorkflowMockup />}
-          </motion.div>
+          </Reveal>
         </section>
 
         {/* CASE STUDY */}
@@ -157,12 +152,10 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
             <Block label="04 · Outcomes">
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:gap-4">
                 {project.caseStudy.outcomes.map((o, i) => (
-                  <motion.div
+                  <Reveal
                     key={o.k}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-10% 0px" }}
-                    transition={{ duration: 0.55, delay: i * 0.05 }}
+                    as="div"
+                    delay={i * 50}
                     className="washi-card p-5"
                   >
                     <div className="heading-eyebrow">{o.k}</div>
@@ -172,7 +165,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
                     {o.note && (
                       <div className="mt-1 text-[11px] text-ink-700/55">{o.note}</div>
                     )}
-                  </motion.div>
+                  </Reveal>
                 ))}
               </div>
             </Block>
@@ -226,12 +219,10 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
             <Block label="07 · Technical Challenges">
               <div className="grid gap-4 md:grid-cols-3">
                 {project.caseStudy.challenges.map((c, i) => (
-                  <motion.div
+                  <Reveal
                     key={c.title}
-                    initial={{ opacity: 0, y: 18 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-10% 0px" }}
-                    transition={{ duration: 0.5, delay: i * 0.06 }}
+                    as="div"
+                    delay={i * 60}
                     className="washi-card p-5"
                   >
                     <div className="font-brush text-xs text-crimson">
@@ -243,7 +234,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
                     <p className="mt-2 text-sm leading-relaxed text-ink-700/85">
                       {c.body}
                     </p>
-                  </motion.div>
+                  </Reveal>
                 ))}
               </div>
             </Block>
