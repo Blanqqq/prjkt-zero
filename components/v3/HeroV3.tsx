@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { InkWash } from "./InkWash";
 import { Reveal } from "../motion/Reveal";
 
 /**
@@ -19,6 +20,9 @@ export function HeroV3() {
       id="top"
       className="relative mx-auto w-full max-w-[1400px] px-6 pb-20 pt-32 sm:px-10 md:pb-28 md:pt-40"
     >
+      {/* Sumi-e ink wash drifting through the negative space behind the wordmark */}
+      <InkWash className="pointer-events-none absolute -left-24 top-8 h-[660px] w-[880px] mix-blend-multiply md:-left-12" />
+
       {/* Vertical kanji in the negative space — 零式 (type zero), very faint */}
       <span
         aria-hidden

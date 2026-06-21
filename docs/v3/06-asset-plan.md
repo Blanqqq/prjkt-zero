@@ -1,6 +1,10 @@
 # Deliverable 6 — Asset Generation Plan
 
-> **Plan now; execution BLOCKED** on Flux/Replicate (or Higgsfield) connection. This document is the brief the generation step will follow — no tool needed to write it.
+> **Update (2026-06-20):** Replicate is now authenticated, but the account has $0 credit and Higgsfield has none either, so paid AI generation is on hold. Rather than block, the **#1 asset (atmosphere) was hand-crafted in code** instead — see "Delivered" below. The AI-gen brief stays valid for when credit is added.
+
+## ✅ Delivered (no-AI, free)
+- **Sumi-e ink-wash atmosphere** — `components/v3/InkWash.tsx`, pure SVG (`feTurbulence` displacement + soft gradients), placed behind the hero wordmark at very low opacity. Honors "not generic AI art" + negative-space direction; zero cost, zero weight beyond a few KB of inline SVG. Build + live-preview verified.
+- Pairs with the CSS `.ink-wipe` wordmark reveal (shipped separately).
 
 ## Principle
 Generate only assets that **earn their pixels** against negative space. Default to *no new hero image*; add atmosphere only if it raises the concept without costing the perf budget (D9). Museum/concept-car quality. **Not** generic AI art, cyberpunk, or anime.
