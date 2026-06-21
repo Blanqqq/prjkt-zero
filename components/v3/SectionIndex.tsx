@@ -83,7 +83,7 @@ export function SectionIndex() {
                 onClick={() => go(blade.targetId)}
                 data-hover
                 aria-label={`Open ${blade.label}`}
-                className="inline-flex items-center gap-2 rounded-full bg-sakura-100/95 px-4 py-2 text-xs font-medium tracking-tight text-ink-800 transition hover:bg-crimson hover:text-sakura-100"
+                className="inline-flex items-center gap-2 rounded-full bg-sakura-100/95 px-4 py-2 text-xs font-medium tracking-tight text-ink-800 transition hover:bg-crimson hover:text-sakura-100 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sakura-100/80"
               >
                 Enter →
               </button>

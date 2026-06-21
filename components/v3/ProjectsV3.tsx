@@ -40,7 +40,7 @@ export function ProjectsV3() {
                 href={`/projects/${project.id}`}
                 data-hover
                 aria-label={`Case study: ${project.name}`}
-                className="washi-card group block h-full overflow-hidden transition duration-300 will-change-transform hover:-translate-y-1"
+                className="washi-card group block h-full overflow-hidden transition duration-300 will-change-transform hover:-translate-y-1 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-800/40 focus-visible:ring-offset-2 focus-visible:ring-offset-sakura-200"
               >
                 {/* Contained car strip — wireframe-on-black, so a dark home */}
                 <div className="cinema-frame relative aspect-[16/7] overflow-hidden bg-[#06060A]">

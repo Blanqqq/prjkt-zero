@@ -67,7 +67,7 @@ export function HeroV3() {
           <a
             href="#projects"
             data-hover
-            className="group inline-flex items-center gap-3 rounded-full bg-ink-800 px-6 py-3.5 text-sm font-medium tracking-tight text-sakura-100 transition hover:bg-crimson"
+            className="group inline-flex items-center gap-3 rounded-full bg-ink-800 px-6 py-3.5 text-sm font-medium tracking-tight text-sakura-100 transition hover:bg-crimson active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-800/40 focus-visible:ring-offset-2 focus-visible:ring-offset-sakura-200"
           >
             <span>View work</span>
             <span className="grid h-6 w-6 place-items-center rounded-full bg-sakura-100/15 transition group-hover:bg-sakura-100/25">
@@ -80,7 +80,7 @@ export function HeroV3() {
           <a
             href="mailto:johnpaul081023@gmail.com"
             data-hover
-            className="inline-flex items-center gap-2 rounded-full border border-ink-800/15 bg-white/55 px-5 py-3.5 text-sm font-medium tracking-tight text-ink-800 transition hover:border-ink-800/30"
+            className="inline-flex items-center gap-2 rounded-full border border-ink-800/15 bg-white/55 px-5 py-3.5 text-sm font-medium tracking-tight text-ink-800 transition hover:border-ink-800/30 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-800/40 focus-visible:ring-offset-2 focus-visible:ring-offset-sakura-200"
           >
             Hire me ↗
           </a>
