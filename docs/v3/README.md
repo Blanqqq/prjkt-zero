@@ -9,7 +9,7 @@ Strategy stack for the `/v3` contender. `/` (museum) stays live; case studies ar
 | 1 | [Full site audit](01-audit.md) | ✅ Complete (grounded in code) |
 | 2 | [Competitive analysis](02-competitive-analysis.md) | ✅ Complete (WebSearch) |
 | 3 | [Creative direction](03-creative-direction.md) | ◑ v1 (D2-informed; D4 imagery pending) |
-| 4 | [Visual language & moodboard](04-visual-language-moodboard.md) | ⏸ Blocked — Exa/Firecrawl |
+| 4 | [Visual language & moodboard](04-visual-language-moodboard.md) | ✅ Report done (Exa); image board needs gen credit |
 | 5 | [Motion design system](05-motion-system.md) | ◑ Draft (buildable) |
 | 6 | [Asset generation plan](06-asset-plan.md) | ◑ Atmosphere delivered (hand-crafted SVG); AI gen on hold — no credit |
 | 7 | [UX redesign plan](07-ux-redesign.md) | ✅ Complete |
