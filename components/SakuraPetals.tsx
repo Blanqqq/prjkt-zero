@@ -68,9 +68,26 @@ function mulberry32(seed: number) {
 }
 
 export function SakuraPetals({ count = 36 }: { count?: number }) {
-  const particles = useMemo(() => build(42, count), [count]);
   const layerRef = useRef<HTMLDivElement>(null);
   const [dim, setDim] = useState(false);
+  // Mobile paint budget (audit A9 / D9): on small screens halve the petal
+  // count and drop the per-petal drop-shadow — filters on many animated nodes
+  // are the dominant compositing cost. Desktop is unchanged.
+  const [lite, setLite] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 640px)");
+    const apply = () => setLite(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  const particles = useMemo(
+    () => build(42, lite ? Math.round(count / 2) : count),
+    [count, lite]
+  );
 
   /**
    * Watch for elements with [data-dark-section] (the dark Project Garage stage
@@ -114,7 +131,10 @@ export function SakuraPetals({ count = 36 }: { count?: number }) {
             backgroundImage: `url("data:image/svg+xml;utf8,${p.kind === "petal" ? PETAL_SVG : INK_SVG}")`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
-            filter: p.kind === "petal" ? "drop-shadow(0 2px 6px rgba(157,27,50,0.18))" : "none",
+            filter:
+              p.kind === "petal" && !lite
+                ? "drop-shadow(0 2px 6px rgba(157,27,50,0.18))"
+                : "none",
           }}
         />
       ))}

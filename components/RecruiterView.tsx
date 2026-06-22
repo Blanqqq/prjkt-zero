@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { Reveal } from "./motion/Reveal";
 import { PROJECTS } from "./projects/projectsConfig";
 import { SocialIcon } from "./SocialIcons";
 import { SOCIALS } from "./socials";
@@ -49,14 +49,12 @@ export function RecruiterView() {
             </button>
           </div>
         </div>
-        <motion.h1
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <Reveal
+          as="h1"
           className="heading-display mt-4 text-[clamp(40px,6vw,80px)] text-ink-800"
         >
           John Paul Giftson
-        </motion.h1>
+        </Reveal>
         <p className="mt-3 max-w-2xl text-body">
           3rd-year B.Sc. in <strong>AI &amp; Machine Learning Engineering</strong> at
           the University of Manitoba. Comfortable across the stack: data pipelines,

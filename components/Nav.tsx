@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useActiveSection } from "./hooks/useActiveSection";
 import { MobileMenu } from "./MobileMenu";
 import { usePortfolio } from "./PortfolioContext";
 import { RecruiterToggle } from "./RecruiterToggle";
@@ -30,9 +31,9 @@ const LINKS_RECRUITER = [
  */
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState<string>("");
   const { recruiter } = usePortfolio();
   const links = recruiter ? LINKS_RECRUITER : LINKS_FULL;
+  const active = useActiveSection(links.map((l) => l.id));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -40,25 +41,6 @@ export function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    const targets = links
-      .map((l) => document.getElementById(l.id))
-      .filter((el): el is HTMLElement => !!el);
-    if (!targets.length) return;
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive(visible.target.id);
-      },
-      { rootMargin: "-30% 0px -60% 0px", threshold: [0.1, 0.3, 0.5] }
-    );
-    targets.forEach((t) => io.observe(t));
-    return () => io.disconnect();
-  }, [links]);
 
   return (
     <header

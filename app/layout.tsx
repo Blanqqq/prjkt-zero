@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import { cookies } from "next/headers";
 import { AppFrame } from "@/components/AppFrame";
 import { PortfolioProvider } from "@/components/PortfolioContext";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://giftson.dev"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "John Paul Giftson — AI & ML Engineer",
     template: "%s — John Paul Giftson",
@@ -46,7 +48,7 @@ const PERSON_LD = {
   "@type": "Person",
   name: "John Paul Giftson",
   alternateName: "Blanqqq",
-  url: "https://prjkt-zero.vercel.app",
+  url: SITE_URL,
   jobTitle: "AI & Machine Learning Engineering Student",
   email: "mailto:johnpaul081023@gmail.com",
   telephone: "+1-951-307-0269",
@@ -75,18 +77,32 @@ const PERSON_LD = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Seed Recruiter Mode from the cookie so the server renders the correct view
+  // on first paint (no Exhibit→Recruiter flash for returning recruiters).
+  const cookieStore = await cookies();
+  const initialRecruiter = cookieStore.get("pz_recruiter")?.value === "1";
+
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
+        {/* Marks JS as available BEFORE first paint so scroll-reveal elements
+            can start hidden only when they can actually animate in. Without
+            this (no JS / crawlers) content stays fully visible (audit A2). */}
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js-reveal')",
+          }}
+        />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_LD) }}
         />
-        <PortfolioProvider>
+        <PortfolioProvider initialRecruiter={initialRecruiter}>
           <AppFrame>{children}</AppFrame>
         </PortfolioProvider>
       </body>

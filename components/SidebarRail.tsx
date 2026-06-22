@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useActiveSection } from "./hooks/useActiveSection";
 import { usePortfolio } from "./PortfolioContext";
 
 /**
@@ -44,26 +44,7 @@ const ICONS: { id: string; label: string; path: string }[] = [
 
 export function SidebarRail() {
   const { recruiter, hydrated } = usePortfolio();
-  const [active, setActive] = useState<string>("");
-
-  useEffect(() => {
-    if (recruiter) return;
-    const targets = ICONS.map((l) => document.getElementById(l.id)).filter(
-      (el): el is HTMLElement => !!el
-    );
-    if (!targets.length) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        const v = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (v) setActive(v.target.id);
-      },
-      { rootMargin: "-30% 0px -60% 0px", threshold: [0.1, 0.3, 0.5] }
-    );
-    targets.forEach((t) => io.observe(t));
-    return () => io.disconnect();
-  }, [recruiter]);
+  const active = useActiveSection(ICONS.map((i) => i.id));
 
   if (recruiter) return null;
 

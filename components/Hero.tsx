@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { Reveal } from "./motion/Reveal";
 import { KatanaWall } from "./katana/KatanaWall";
 import { MusashiQuote } from "./MusashiQuote";
 import { WeatherCard } from "./WeatherCard";
@@ -9,6 +9,10 @@ import { WeatherCard } from "./WeatherCard";
  * V2 hero — brush wordmark on the left, side panels (Musashi quote, weather),
  * a giant Bushido kanji ghost in the background, and the pedestal katana row
  * spanning the bottom. Composition reads like a museum lobby plaque.
+ *
+ * Entrances use <Reveal> (SSR-safe, reduced-motion-first) instead of raw
+ * framer-motion so the wordmark — the LCP element — paints immediately and is
+ * never invisible without JS (audit A2/A3).
  */
 export function Hero() {
   return (
@@ -33,19 +37,16 @@ export function Hero() {
             <span className="heading-eyebrow">Exhibition · Floor 00 — Lobby</span>
           </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          <Reveal
+            as="h1"
             className="heading-display mt-4 text-[clamp(64px,10vw,148px)] text-ink-800"
           >
             John Paul Giftson
-          </motion.h1>
+          </Reveal>
 
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.15 }}
+          <Reveal
+            as="p"
+            delay={120}
             className="mt-6 max-w-xl text-[clamp(17px,1.6vw,21px)] leading-snug text-ink-700/80"
           >
             AI &amp; Machine Learning engineer in training.
@@ -53,12 +54,11 @@ export function Hero() {
             <span className="text-ink-800">
               I build things that matter — and try to make them last.
             </span>
-          </motion.p>
+          </Reveal>
 
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.25 }}
+          <Reveal
+            as="div"
+            delay={220}
             className="mt-8 flex flex-wrap items-center gap-3"
           >
             <a
@@ -80,13 +80,12 @@ export function Hero() {
             >
               Hire me ↗
             </a>
-          </motion.div>
+          </Reveal>
 
           {/* Vitals row */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.35 }}
+          <Reveal
+            as="div"
+            delay={320}
             className="mt-12 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-4"
           >
             {[
@@ -102,39 +101,32 @@ export function Hero() {
                 </div>
               </div>
             ))}
-          </motion.div>
+          </Reveal>
         </div>
 
         {/* RIGHT — quote + weather stacked */}
         <div className="flex flex-col items-end gap-5 lg:col-span-4">
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.4 }}
+          <Reveal
+            as="div"
+            delay={360}
             className="w-full sm:max-w-[300px] lg:max-w-none"
           >
             <MusashiQuote />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.5 }}
+          </Reveal>
+          <Reveal
+            as="div"
+            delay={440}
             className="w-full sm:max-w-[300px] lg:max-w-none"
           >
             <WeatherCard />
-          </motion.div>
+          </Reveal>
         </div>
       </div>
 
       {/* Katana pedestal row */}
-      <motion.div
-        initial={{ opacity: 0, y: 32 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-20 md:mt-24"
-      >
+      <Reveal as="div" delay={360} className="mt-20 md:mt-24">
         <KatanaWall />
-      </motion.div>
+      </Reveal>
     </section>
   );
 }

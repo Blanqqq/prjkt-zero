@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { Reveal } from "../motion/Reveal";
 import { JDMCar } from "./JDMCar";
 import { PROJECTS, type ProjectStatus } from "./projectsConfig";
 
@@ -87,15 +87,9 @@ export function Projects() {
         {/* Cars */}
         <div className="relative mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
           {PROJECTS.map((p, i) => (
-            <motion.div
-              key={p.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10% 0px" }}
-              transition={{ duration: 0.8, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            >
+            <Reveal key={p.id} as="div" delay={i * 80}>
               <CarBay project={p} index={i} />
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>
