@@ -9,6 +9,13 @@ const nextConfig = {
   poweredByHeader: false,
   compiler: { removeConsole: process.env.NODE_ENV === "production" },
   outputFileTracingRoot: __dirname,
+  async redirects() {
+    return [
+      // /v3 retired — its composition was promoted to the site root. A true
+      // 308 at the routing layer (cleaner for SEO than a client-side redirect).
+      { source: "/v3", destination: "/", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

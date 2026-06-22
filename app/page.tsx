@@ -1,8 +1,6 @@
 "use client";
 
 import { usePortfolio } from "@/components/PortfolioContext";
-import { Hero } from "@/components/Hero";
-import { Projects } from "@/components/projects/Projects";
 import { RecruiterView } from "@/components/RecruiterView";
 import { About } from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
@@ -10,33 +8,42 @@ import { Education } from "@/components/sections/Education";
 import { Experience } from "@/components/sections/Experience";
 import { Hobbies } from "@/components/sections/Hobbies";
 import { Skills } from "@/components/sections/Skills";
+import { HeroV3 } from "@/components/v3/HeroV3";
+import { ProjectsV3 } from "@/components/v3/ProjectsV3";
+import { SectionIndex } from "@/components/v3/SectionIndex";
 
+/**
+ * Home — the v3 editorial composition, promoted from /v3 to the site root
+ * (2026-06-21). Same primitives as before (shared AppFrame, data layer, case
+ * studies, Recruiter Mode); the museum composition is retired from root.
+ *
+ * Recruiter Mode is seeded from the cookie at SSR (see PortfolioContext +
+ * layout), so first paint is correct and the resume view wins when active.
+ */
 export default function Home() {
   const { recruiter } = usePortfolio();
-  // recruiter is seeded from the cookie at SSR, so first paint is already correct.
   return recruiter ? <RecruiterView /> : <FullExperience />;
 }
 
 function FullExperience() {
-  // Recruiter-priority ordering — projects + experience lead. Hobbies is last
-  // (still discoverable, but doesn't block the work narrative).
   return (
     <main className="relative">
-      <Hero />
+      <HeroV3 />
+      <SectionIndex />
       <Divider kanji="人" />
       <About />
       <Divider kanji="創" />
-      <Projects />
+      <ProjectsV3 />
       <Divider kanji="業" />
       <Experience />
       <Divider kanji="技" />
       <Skills />
       <Divider kanji="学" />
       <Education />
-      <Divider kanji="縁" />
-      <Contact />
       <Divider kanji="趣" />
       <Hobbies />
+      <Divider kanji="縁" />
+      <Contact />
     </main>
   );
 }
